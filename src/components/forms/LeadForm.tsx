@@ -78,8 +78,8 @@ export function LeadForm(props: LeadFormProps) {
   });
 
   const stateGuideHref = useMemo(() => {
-    if (!props.state) return "/state-guide";
-    return `/state-guide/${props.state}`;
+    if (!props.state) return "/solar-subsidy";
+    return `/solar-subsidy-${props.state}`;
   }, [props.state]);
 
   const onSubmit = async (values: Values) => {

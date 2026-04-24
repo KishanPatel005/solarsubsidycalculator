@@ -2,23 +2,23 @@ import Link from "next/link";
 import { Logo } from "@/components/layout/Logo";
 
 const topStates = [
-  { href: "/state-guide/maharashtra", label: "Maharashtra" },
-  { href: "/state-guide/gujarat", label: "Gujarat" },
-  { href: "/state-guide/rajasthan", label: "Rajasthan" },
-  { href: "/state-guide/karnataka", label: "Karnataka" },
-  { href: "/state-guide/uttar-pradesh", label: "Uttar Pradesh" },
+  { href: "/solar-subsidy-maharashtra", label: "Maharashtra" },
+  { href: "/solar-subsidy-gujarat", label: "Gujarat" },
+  { href: "/solar-subsidy-rajasthan", label: "Rajasthan" },
+  { href: "/solar-subsidy-karnataka", label: "Karnataka" },
+  { href: "/solar-subsidy-uttar-pradesh", label: "Uttar Pradesh" },
 ] as const;
 
 const calculators = [
   { href: "/calculator", label: "Rooftop subsidy calculator" },
-  { href: "/calculator/net-metering", label: "Net metering estimate" },
-  { href: "/calculator/payback", label: "Payback period estimate" },
+  { href: "/calculator", label: "Net metering estimate" },
+  { href: "/calculator", label: "Payback period estimate" },
 ] as const;
 
 const blogLinks = [
   { href: "/blog", label: "Solar subsidy updates" },
-  { href: "/blog/pm-surya-ghar", label: "PM Surya Ghar scheme" },
-  { href: "/blog/documents-required", label: "Documents checklist" },
+  { href: "/blog/pm-surya-ghar-yojana-2025", label: "PM Surya Ghar scheme" },
+  { href: "/blog/solar-subsidy-documents-required", label: "Documents checklist" },
 ] as const;
 
 function FooterSection({
@@ -87,7 +87,7 @@ export function Footer() {
             <Link href="/blog" className="hover:text-foreground">
               Blog
             </Link>
-            <Link href="/subsidy-status" className="hover:text-foreground">
+            <Link href="/blog/solar-subsidy-status-check" className="hover:text-foreground">
               Subsidy Status
             </Link>
           </div>

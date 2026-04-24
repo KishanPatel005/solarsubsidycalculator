@@ -14,6 +14,11 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { SmoothScrollButton } from "@/components/home/SmoothScrollButton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { EMICalculator } from "@/components/calculators/EMICalculator";
+import { LoanCalculator } from "@/components/calculators/LoanCalculator";
+import { SavingsCalculator } from "@/components/calculators/SavingsCalculator";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 export const metadata: Metadata = {
   title: "Solar Subsidy Calculator India 2025 | PM Surya Ghar",
@@ -38,21 +43,22 @@ function stateGuideHref(slug: string) {
 }
 
 export default function Home() {
+  const base = getSiteUrl();
   const orgJsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Solar Subsidy Calculator",
-    url: "https://solarsubsidycalculator.com",
+    url: base,
   });
 
   const websiteJsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Solar Subsidy Calculator India",
-    url: "https://solarsubsidycalculator.com",
+    url: base,
     potentialAction: {
       "@type": "SearchAction",
-      target: "https://solarsubsidycalculator.com/solar-subsidy-{search_term_string}",
+      target: `${base}/solar-subsidy-{search_term_string}`,
       "query-input": "required name=search_term_string",
     },
   });
@@ -144,14 +150,14 @@ export default function Home() {
   const centralMax = subsidyRates2025.central.maxAmount;
 
   return (
-    <div className="space-y-16 pb-16">
+    <div className="space-y-12 pb-16">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: orgJsonLd }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: websiteJsonLd }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqJsonLd }} />
 
       {/* 1) Hero */}
-      <section className="pt-8 sm:pt-12">
-        <div className="space-y-6">
+      <section className="pt-4 sm:pt-6">
+        <div className="space-y-4">
           <div className="flex flex-wrap items-center gap-2">
             <Badge className="bg-solar-600 text-white hover:bg-solar-700">Updated 2025</Badge>
             <Badge variant="secondary" className="inline-flex items-center gap-1">
@@ -200,7 +206,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2) How it works */}
+      {/* 2) Calculator (all tabs, highlighted) */}
+      <section className="space-y-4" id="calculator">
+        <div className="space-y-2">
+          <h2 className="text-2xl font-bold tracking-tight">Calculate Your Subsidy Now</h2>
+          <p className="text-sm text-muted-foreground">
+            Use the tabs to estimate subsidy, EMI, loan options, and long-term savings.
+          </p>
+        </div>
+
+        <Card className="p-3 sm:p-4">
+          <Tabs defaultValue="subsidy" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
+              <TabsTrigger value="subsidy">Subsidy</TabsTrigger>
+              <TabsTrigger value="emi">EMI</TabsTrigger>
+              <TabsTrigger value="loan">Loan</TabsTrigger>
+              <TabsTrigger value="savings">Savings</TabsTrigger>
+            </TabsList>
+
+            <div className="mt-4">
+              <TabsContent value="subsidy">
+                <SubsidyCalculator defaultStateSlug="gujarat" />
+              </TabsContent>
+              <TabsContent value="emi">
+                <EMICalculator defaultPrincipal={null} />
+              </TabsContent>
+              <TabsContent value="loan">
+                <LoanCalculator />
+              </TabsContent>
+              <TabsContent value="savings">
+                <SavingsCalculator />
+              </TabsContent>
+            </div>
+          </Tabs>
+        </Card>
+      </section>
+
+      <Separator />
+
+      {/* 3) How it works */}
       <section className="space-y-6">
         <div className="space-y-2">
           <h2 className="text-2xl font-bold tracking-tight">How to Get Solar Subsidy in 3 Steps</h2>
@@ -251,17 +295,6 @@ export default function Home() {
           </Card>
         </div>
       </section>
-
-      {/* 3) Calculator preview */}
-      <section className="space-y-4" id="calculator">
-        <div className="space-y-2">
-          <h2 className="text-2xl font-bold tracking-tight">Calculate Your Subsidy Now</h2>
-          <p className="text-sm text-muted-foreground">Enter your state and bill details to get instant results.</p>
-        </div>
-        <SubsidyCalculator defaultStateSlug="gujarat" />
-      </section>
-
-      <Separator />
 
       {/* 4) Why solar */}
       <section className="space-y-6">
