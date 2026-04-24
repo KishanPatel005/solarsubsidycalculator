@@ -98,14 +98,16 @@ function ResultSkeleton() {
 
 export function SubsidyCalculator({
   onFinalCostComputed,
+  defaultStateSlug,
 }: {
   onFinalCostComputed?: (finalCostINR: number) => void;
+  defaultStateSlug?: string;
 }) {
   const form = useForm<SubsidyFormValues>({
     resolver: zodResolver(schema) as unknown as Resolver<SubsidyFormValues>,
     mode: "onBlur",
     defaultValues: {
-      stateSlug: "gujarat",
+      stateSlug: defaultStateSlug ?? "gujarat",
       monthlyBill: 3000,
       rooftopArea: 200,
       sanctionedLoad: 3,
