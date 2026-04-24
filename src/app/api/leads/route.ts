@@ -8,12 +8,12 @@ const leadSchema = z.object({
   name: z.string().min(2).max(50),
   phone: z.string().regex(/^[6-9]\d{9}$/),
   city: z.string().min(2).max(80),
-  bill: z.number().min(0).max(50_000),
+  bill: z.coerce.number().min(0).max(50_000),
   callTime: z.enum(["morning", "afternoon", "evening"]),
   calculatorType: z.enum(["subsidy", "emi", "loan", "savings"]),
-  subsidyAmount: z.number().optional(),
-  finalCost: z.number().optional(),
-  monthlySavings: z.number().optional(),
+  subsidyAmount: z.coerce.number().optional(),
+  finalCost: z.coerce.number().optional(),
+  monthlySavings: z.coerce.number().optional(),
   state: z.string().optional(),
 });
 
@@ -91,27 +91,35 @@ async function sendEmailJsNotification(lead: StoredLead): Promise<void> {
 }
 
 export async function POST(req: Request) {
-  const json = await req.json().catch(() => null);
-  const parsed = leadSchema.safeParse(json);
+  try {
+    const json = await req.json().catch(() => null);
+    const parsed = leadSchema.safeParse(json);
 
-  if (!parsed.success) {
+    if (!parsed.success) {
+      return NextResponse.json(
+        { ok: false, error: "Invalid lead data" },
+        { status: 400 }
+      );
+    }
+
+    const ipAddress = getIpAddress(req);
+    const lead: StoredLead = {
+      ...parsed.data,
+      id: crypto.randomUUID(),
+      timestamp: new Date().toISOString(),
+      ipAddress,
+    };
+
+    await appendLead(lead);
+    await sendEmailJsNotification(lead);
+
+    // Never return the full leads array.
+    return NextResponse.json({ ok: true });
+  } catch {
     return NextResponse.json(
-      { ok: false, error: "Invalid lead data", issues: parsed.error.issues },
-      { status: 400 }
+      { ok: false, error: "Server error" },
+      { status: 500 }
     );
   }
-
-  const ipAddress = getIpAddress(req);
-  const lead: StoredLead = {
-    ...parsed.data,
-    id: crypto.randomUUID(),
-    timestamp: new Date().toISOString(),
-    ipAddress,
-  };
-
-  await appendLead(lead);
-  await sendEmailJsNotification(lead);
-
-  return NextResponse.json({ ok: true, leadId: lead.id });
 }
 

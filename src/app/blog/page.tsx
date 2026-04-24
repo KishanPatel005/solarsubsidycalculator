@@ -4,10 +4,12 @@ import { getAllPosts, getFeaturedPosts } from "@/lib/blog";
 import { BlogGrid } from "@/app/blog/BlogGrid";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { Badge } from "@/components/ui/badge";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 export const dynamic = "force-static";
 
 export function generateMetadata(): Metadata {
+  const base = getSiteUrl();
   return {
     title: "Solar Subsidy Blog — Guides & Tips India 2025",
     description:
@@ -16,7 +18,7 @@ export function generateMetadata(): Metadata {
       title: "Solar Subsidy Blog — Guides & Tips India 2025",
       description:
         "Expert guides on PM Surya Ghar, solar subsidy by state, how to apply, and maximize your savings.",
-      url: "https://solarsubsidycalculator.com/blog",
+      url: `${base}/blog`,
       type: "website",
     },
   };

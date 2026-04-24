@@ -27,9 +27,18 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env.local
+.env
 
 # lead capture storage (private)
 src/data/leads.json
+
+.next
+node_modules
+.venv
+*.log
+Thumbs.db
+scripts/fetch-blog-heroes.mjs
 
 # vercel
 .vercel

@@ -111,7 +111,7 @@ export function generateMetadata({ params }: PageProps): Metadata {
     title: `Solar Subsidy in ${stateName} 2025 | Calculator & Guide`,
     description: `Get up to ₹78,000 solar subsidy in ${stateName}. Use our free calculator, check eligibility and apply for PM Surya Ghar Yojana 2025.`,
     alternates: {
-      canonical: `https://solarsubsidycalculator.com/solar-subsidy-${params.state}`,
+      canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://solarsubsidycalculator.com"}/solar-subsidy-${params.state}`,
     },
   };
 }

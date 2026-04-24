@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: "Solar Subsidy Calculator India 2025 | PM Surya Ghar",
   description:
     "Free solar subsidy calculator for India. Calculate PM Surya Ghar subsidy up to ₹78,000. Check eligibility for all 36 states. Instant results.",
-  alternates: { canonical: "https://solarsubsidycalculator.com" },
+  alternates: { canonical: process.env.NEXT_PUBLIC_SITE_URL || "https://solarsubsidycalculator.com" },
 };
 
 function getStateBonusAmount(stateSlug: string): number {

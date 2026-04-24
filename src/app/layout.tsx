@@ -8,6 +8,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SchemaMarkup } from "@/components/seo/SchemaMarkup";
 import { OrganizationSchema, WebSiteSchema } from "@/components/seo/schemas";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -21,7 +22,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://solarsubsidycalculator.com"),
+  metadataBase: new URL(getSiteUrl()),
   title: {
     default: "Solar Subsidy Calculator India 2025 | PM Surya Ghar",
     template: "%s | Solar Subsidy Calculator",
@@ -29,12 +30,12 @@ export const metadata: Metadata = {
   description:
     "Free solar subsidy calculator for India. Calculate PM Surya Ghar subsidy up to ₹78,000. Check eligibility for all 36 states. Instant results.",
   alternates: {
-    canonical: "https://solarsubsidycalculator.com",
+    canonical: getSiteUrl(),
   },
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://solarsubsidycalculator.com",
+    url: getSiteUrl(),
     siteName: "Solar Subsidy Calculator",
     title: "Solar Subsidy Calculator India 2025 | PM Surya Ghar",
     description:
@@ -76,18 +77,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const base = getSiteUrl();
   const org = OrganizationSchema({
     name: "Solar Subsidy Calculator",
-    url: "https://solarsubsidycalculator.com",
+    url: base,
     description:
       "Free solar subsidy calculator for India with state-wise solar subsidy guides and lead capture for solar consultation.",
-    logo: "https://solarsubsidycalculator.com/icon.png",
+    logo: `${base}/icon.png`,
   });
 
   const website = WebSiteSchema({
     name: "Solar Subsidy Calculator India",
-    url: "https://solarsubsidycalculator.com",
-    searchTarget: "https://solarsubsidycalculator.com/solar-subsidy-{search_term_string}",
+    url: base,
+    searchTarget: `${base}/solar-subsidy-{search_term_string}`,
   });
 
   return (

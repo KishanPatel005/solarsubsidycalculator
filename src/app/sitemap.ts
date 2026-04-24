@@ -3,16 +3,11 @@ import { readdir } from "node:fs/promises";
 import path from "node:path";
 
 import { statesAndUTs } from "@/lib/data/states";
-
-function siteUrl() {
-  return "https://solarsubsidycalculator.com";
-}
+import { getSiteUrl } from "@/lib/siteUrl";
 
 async function listBlogSlugs(): Promise<string[]> {
-  // Requested path: /content/blogs/ — in this repo it's under /src/content/blogs/
-  // Return [] if directory doesn't exist.
   const root = process.cwd();
-  const base = path.join(root, "src", "content", "blogs");
+  const base = path.join(root, "content", "blogs");
 
   try {
     const entries = await readdir(base, { withFileTypes: true });
@@ -28,27 +23,28 @@ async function listBlogSlugs(): Promise<string[]> {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
+  const base = getSiteUrl();
 
   const home: MetadataRoute.Sitemap = [
-    { url: `${siteUrl()}/`, lastModified, changeFrequency: "daily", priority: 1.0 },
-    { url: `${siteUrl()}/calculator`, lastModified, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${base}/`, lastModified, changeFrequency: "daily", priority: 1.0 },
+    { url: `${base}/calculator`, lastModified, changeFrequency: "weekly", priority: 0.9 },
   ];
 
   const statePages: MetadataRoute.Sitemap = statesAndUTs.map((s) => ({
     // Canonical requested shape
-    url: `${siteUrl()}/solar-subsidy-${s.slug}`,
+    url: `${base}/solar-subsidy-${s.slug}`,
     lastModified,
     changeFrequency: "weekly",
     priority: 0.8,
   }));
 
   const guidePages: MetadataRoute.Sitemap = [
-    { url: `${siteUrl()}/solar-subsidy`, lastModified, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${base}/solar-subsidy`, lastModified, changeFrequency: "weekly", priority: 0.7 },
   ];
 
   const blogSlugs = await listBlogSlugs();
   const blogPages: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
-    url: `${siteUrl()}/blog/${slug}`,
+    url: `${base}/blog/${slug}`,
     lastModified,
     changeFrequency: "daily",
     priority: 0.7,

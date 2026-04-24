@@ -15,9 +15,10 @@ import { LeadForm } from "@/components/forms/LeadForm";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 function siteUrl() {
-  return "https://solarsubsidycalculator.com";
+  return getSiteUrl();
 }
 
 function formatDate(dateStr: string) {

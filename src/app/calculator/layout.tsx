@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Calculate solar panel subsidy, EMI and savings instantly. Based on official PM Surya Ghar 2025 rates. Free calculator for all Indian states.",
   alternates: {
-    canonical: "https://solarsubsidycalculator.com/calculator",
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://solarsubsidycalculator.com"}/calculator`,
   },
 };
 

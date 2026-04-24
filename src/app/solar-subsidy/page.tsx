@@ -13,7 +13,9 @@ export const metadata: Metadata = {
   title: "Solar Subsidy by State 2025 | All States & UTs",
   description:
     "Browse solar subsidy guides for all Indian states and union territories. Check eligibility, required documents, and official portal links for PM Surya Ghar 2025.",
-  alternates: { canonical: "https://solarsubsidycalculator.com/solar-subsidy" },
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://solarsubsidycalculator.com"}/solar-subsidy`,
+  },
 };
 
 function getStateBonusAmount(stateSlug: string): number {

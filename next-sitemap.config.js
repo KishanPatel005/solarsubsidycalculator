@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: "https://solarsubsidycalculator.com",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://solarsubsidycalculator.com",
   generateRobotsTxt: false,
 };
 
