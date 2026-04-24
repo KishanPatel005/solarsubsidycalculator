@@ -68,7 +68,7 @@ function mkStateContent(params: {
  * - This file intentionally avoids quoting state “additional subsidy” rupee amounts unless verified.
  * - We still provide state portal pointers and state-specific benefit bullets only when sourced.
  */
-export const statesSubsidyContent2025: readonly StateSubsidyContent[] = [
+export const statesSubsidyContent2026: readonly StateSubsidyContent[] = [
   // States (28)
   mkStateContent({ stateSlug: "andhra-pradesh", stateName: "Andhra Pradesh" }),
   mkStateContent({ stateSlug: "arunachal-pradesh", stateName: "Arunachal Pradesh" }),

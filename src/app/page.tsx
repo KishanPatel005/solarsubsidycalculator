@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, BadgeCheck, Calculator, FileText, Leaf, PlugZap, Search, SunMedium } from "lucide-react";
 
-import { subsidyRates2025 } from "@/lib/data/subsidyRates";
+import { subsidyRates2026 } from "@/lib/data/subsidyRates";
 import { statesAndUTs } from "@/lib/data/states";
 import { formatINR } from "@/lib/utils/formatCurrency";
 
@@ -21,14 +21,14 @@ import { SavingsCalculator } from "@/components/calculators/SavingsCalculator";
 import { getSiteUrl } from "@/lib/siteUrl";
 
 export const metadata: Metadata = {
-  title: "Solar Subsidy Calculator India 2025 | PM Surya Ghar",
+  title: "Solar Subsidy Calculator India 2026 | PM Surya Ghar",
   description:
     "Free solar subsidy calculator for India. Calculate PM Surya Ghar subsidy up to ₹78,000. Check eligibility for all 36 states. Instant results.",
   alternates: { canonical: process.env.NEXT_PUBLIC_SITE_URL || "https://solarsubsidycalculator.com" },
 };
 
 function getStateBonusAmount(stateSlug: string): number {
-  const entry = subsidyRates2025.stateAdditional.find((s) => s.stateSlug === stateSlug);
+  const entry = subsidyRates2026.stateAdditional.find((s) => s.stateSlug === stateSlug);
   const amt = entry?.additionalSubsidyAmount;
   if (!amt) return 0;
   if (typeof amt.maxCap === "number") return amt.maxCap;
@@ -69,7 +69,7 @@ export default function Home() {
     mainEntity: [
       {
         "@type": "Question",
-        name: "What is PM Surya Ghar subsidy in 2025?",
+        name: "What is PM Surya Ghar subsidy in 2026?",
         acceptedAnswer: {
           "@type": "Answer",
           text: "Under PM Surya Ghar: Muft Bijli Yojana, the central subsidy (CFA) for residential rooftop solar is available up to ₹78,000 (for 3 kW and above).",
@@ -147,7 +147,7 @@ export default function Home() {
     .map((slug) => statesAndUTs.find((s) => s.slug === slug))
     .filter((s): s is NonNullable<typeof s> => Boolean(s));
 
-  const centralMax = subsidyRates2025.central.maxAmount;
+  const centralMax = subsidyRates2026.central.maxAmount;
 
   return (
     <div className="space-y-12 pb-16">
@@ -155,11 +155,49 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: websiteJsonLd }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqJsonLd }} />
 
-      {/* 1) Hero */}
-      <section className="pt-4 sm:pt-6">
+      {/* 1) Calculator (all tabs, highlighted) */}
+      <section className="space-y-4 pt-4 sm:pt-6" id="calculator">
+        <div className="space-y-2">
+          <h2 className="text-2xl font-bold tracking-tight">Calculate Your Subsidy Now</h2>
+          <p className="text-sm text-muted-foreground">
+            Use the tabs to estimate subsidy, EMI, loan options, and long-term savings.
+          </p>
+        </div>
+
+        <Card className="p-3 sm:p-4">
+          <Tabs defaultValue="subsidy" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
+              <TabsTrigger value="subsidy">Subsidy</TabsTrigger>
+              <TabsTrigger value="emi">EMI</TabsTrigger>
+              <TabsTrigger value="loan">Loan</TabsTrigger>
+              <TabsTrigger value="savings">Savings</TabsTrigger>
+            </TabsList>
+
+            <div className="mt-4">
+              <TabsContent value="subsidy">
+                <SubsidyCalculator defaultStateSlug="gujarat" />
+              </TabsContent>
+              <TabsContent value="emi">
+                <EMICalculator defaultPrincipal={null} />
+              </TabsContent>
+              <TabsContent value="loan">
+                <LoanCalculator />
+              </TabsContent>
+              <TabsContent value="savings">
+                <SavingsCalculator />
+              </TabsContent>
+            </div>
+          </Tabs>
+        </Card>
+      </section>
+
+      <Separator />
+
+      {/* 2) Hero */}
+      <section>
         <div className="space-y-4">
           <div className="flex flex-wrap items-center gap-2">
-            <Badge className="bg-solar-600 text-white hover:bg-solar-700">Updated 2025</Badge>
+            <Badge className="bg-solar-600 text-white hover:bg-solar-700">Updated 2026</Badge>
             <Badge variant="secondary" className="inline-flex items-center gap-1">
               <BadgeCheck className="h-4 w-4" />
               Based on govt data
@@ -168,7 +206,7 @@ export default function Home() {
 
           <div className="space-y-3">
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Solar Subsidy Calculator India 2025
+              Solar Subsidy Calculator India 2026
             </h1>
             <h2 className="text-lg font-semibold text-foreground/90 sm:text-xl">
               Calculate Your PM Surya Ghar Subsidy Instantly
@@ -205,44 +243,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* 2) Calculator (all tabs, highlighted) */}
-      <section className="space-y-4" id="calculator">
-        <div className="space-y-2">
-          <h2 className="text-2xl font-bold tracking-tight">Calculate Your Subsidy Now</h2>
-          <p className="text-sm text-muted-foreground">
-            Use the tabs to estimate subsidy, EMI, loan options, and long-term savings.
-          </p>
-        </div>
-
-        <Card className="p-3 sm:p-4">
-          <Tabs defaultValue="subsidy" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
-              <TabsTrigger value="subsidy">Subsidy</TabsTrigger>
-              <TabsTrigger value="emi">EMI</TabsTrigger>
-              <TabsTrigger value="loan">Loan</TabsTrigger>
-              <TabsTrigger value="savings">Savings</TabsTrigger>
-            </TabsList>
-
-            <div className="mt-4">
-              <TabsContent value="subsidy">
-                <SubsidyCalculator defaultStateSlug="gujarat" />
-              </TabsContent>
-              <TabsContent value="emi">
-                <EMICalculator defaultPrincipal={null} />
-              </TabsContent>
-              <TabsContent value="loan">
-                <LoanCalculator />
-              </TabsContent>
-              <TabsContent value="savings">
-                <SavingsCalculator />
-              </TabsContent>
-            </div>
-          </Tabs>
-        </Card>
-      </section>
-
-      <Separator />
 
       {/* 3) How it works */}
       <section className="space-y-6">
@@ -299,7 +299,7 @@ export default function Home() {
       {/* 4) Why solar */}
       <section className="space-y-6">
         <div className="space-y-2">
-          <h2 className="text-2xl font-bold tracking-tight">Why Install Solar in 2025?</h2>
+          <h2 className="text-2xl font-bold tracking-tight">Why Install Solar in 2026?</h2>
           <p className="text-sm text-muted-foreground">A practical upgrade: savings, stability, and cleaner energy.</p>
         </div>
 
@@ -423,7 +423,7 @@ export default function Home() {
         <Accordion type="single" collapsible className="w-full">
           {[
             {
-              q: "How much subsidy will I get for rooftop solar in 2025?",
+              q: "How much subsidy will I get for rooftop solar in 2026?",
               a: `Central subsidy is available up to ${formatINR(centralMax)} (cap for 3 kW and above). Some states may have additional benefits depending on policy and DISCOM.`,
             },
             {

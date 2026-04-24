@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { Resolver } from "react-hook-form";
 import { useForm } from "react-hook-form";
 
-import { bankSolarLoanOffers2025 } from "@/lib/data/bankRates";
+import { bankSolarLoanOffers2026 } from "@/lib/data/bankRates";
 import { STATES, UNION_TERRITORIES } from "@/lib/data/states";
 import { calculateCentralSubsidy, calculateFinalCost, calculateStateSubsidy, calculateSystemCost } from "@/lib/calculations/subsidy";
 import { calculateEMIResult } from "@/lib/calculations/emi";
@@ -95,7 +95,7 @@ export function LoanCalculator() {
     return { systemCost, central, state, final, downPayment, loanAmount };
   }, [values.downPaymentPct, values.stateSlug, values.systemSize]);
 
-  const topBanks = useMemo(() => bankSolarLoanOffers2025.slice(0, 3), []);
+  const topBanks = useMemo(() => bankSolarLoanOffers2026.slice(0, 3), []);
 
   const comparisons = useMemo(() => {
     const tenureMonths = 60;

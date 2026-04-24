@@ -34,7 +34,7 @@ export interface StateAdditionalSubsidy {
   verificationStatus: VerificationStatus;
   /**
    * Some states offer an extra capital subsidy/GBI/rebate. If the amount is not
-   * reliably available for 2025, keep this undefined and use notes + sources.
+   * reliably available for 2026, keep this undefined and use notes + sources.
    */
   additionalSubsidyAmount?: {
     currency: "INR";
@@ -56,7 +56,7 @@ export interface SubsidyRatesData {
   stateAdditional: readonly StateAdditionalSubsidy[];
 }
 
-export const subsidyRates2025: SubsidyRatesData = {
+export const subsidyRates2026: SubsidyRatesData = {
   central: {
     schemeName: "PM-Surya Ghar: Muft Bijli Yojana (Residential Rooftop Solar CFA)",
     effectiveFromYear: 2024,
@@ -74,7 +74,7 @@ export const subsidyRates2025: SubsidyRatesData = {
   /**
    * NOTE (data policy):
    * - These are STATE-LEVEL add-ons beyond the central CFA, where applicable.
-   * - 2025 state add-ons are not consistently published in one official machine-readable source.
+   * - 2026 state add-ons are not consistently published in one official machine-readable source.
    * - We include entries for the states you requested, and mark unverified if amounts can't be confirmed.
    */
   stateAdditional: [
@@ -83,7 +83,7 @@ export const subsidyRates2025: SubsidyRatesData = {
       stateName: "Gujarat",
       verificationStatus: "unverified",
       notes:
-        "Gujarat has historically run state-level rooftop programs (e.g., SURYA Gujarat). For 2025, verify any extra state subsidy/GBI on the official Gujarat DISCOM rooftop portal and state energy department policy documents.",
+        "Gujarat has historically run state-level rooftop programs (e.g., SURYA Gujarat). For 2026, verify any extra state subsidy/GBI on the official Gujarat DISCOM rooftop portal and state energy department policy documents.",
       officialPortalUrl: "https://suryagujarat.guvnl.in",
       sources: [
         "https://suryagujarat.guvnl.in",
@@ -95,7 +95,7 @@ export const subsidyRates2025: SubsidyRatesData = {
       stateName: "Haryana",
       verificationStatus: "unverified",
       notes:
-        "Haryana rooftop solar applications typically route via DISCOM portals (DHBVN/UHBVN) for approvals and net metering. Verify if any state incentive applies for residential consumers in 2025.",
+        "Haryana rooftop solar applications typically route via DISCOM portals (DHBVN/UHBVN) for approvals and net metering. Verify if any state incentive applies for residential consumers in 2026.",
       sources: [
         "https://pmsuryaghar.gov.in",
       ],
@@ -105,7 +105,7 @@ export const subsidyRates2025: SubsidyRatesData = {
       stateName: "Maharashtra",
       verificationStatus: "unverified",
       notes:
-        "State-level residential add-ons vary by DISCOM and policy. Verify 2025 incentives (if any) via MSEDCL/other DISCOM portals and official notifications.",
+        "State-level residential add-ons vary by DISCOM and policy. Verify 2026 incentives (if any) via MSEDCL/other DISCOM portals and official notifications.",
       sources: ["https://pmsuryaghar.gov.in"],
     },
     {
@@ -131,7 +131,7 @@ export const subsidyRates2025: SubsidyRatesData = {
       stateName: "Kerala",
       verificationStatus: "unverified",
       notes:
-        "Kerala rooftop solar is coordinated via KSEB and the national portal. Verify any Kerala-specific additional subsidy/benefits for 2025 via official KSEB/ANERT communications.",
+        "Kerala rooftop solar is coordinated via KSEB and the national portal. Verify any Kerala-specific additional subsidy/benefits for 2026 via official KSEB/ANERT communications.",
       sources: ["https://pmsuryaghar.gov.in"],
     },
     {
@@ -139,7 +139,7 @@ export const subsidyRates2025: SubsidyRatesData = {
       stateName: "Punjab",
       verificationStatus: "unverified",
       notes:
-        "Verify any 2025 Punjab residential rooftop solar add-on subsidy/GBI via PEDA/PSPCL official sources and notifications.",
+        "Verify any 2026 Punjab residential rooftop solar add-on subsidy/GBI via PEDA/PSPCL official sources and notifications.",
       sources: ["https://pmsuryaghar.gov.in"],
     },
     {
@@ -147,7 +147,7 @@ export const subsidyRates2025: SubsidyRatesData = {
       stateName: "Telangana",
       verificationStatus: "unverified",
       notes:
-        "Verify any 2025 Telangana residential rooftop add-on incentives via TSREDCO/DISCOM notifications. Central CFA applies via the national portal.",
+        "Verify any 2026 Telangana residential rooftop add-on incentives via TSREDCO/DISCOM notifications. Central CFA applies via the national portal.",
       sources: ["https://pmsuryaghar.gov.in"],
     },
     {
@@ -155,7 +155,7 @@ export const subsidyRates2025: SubsidyRatesData = {
       stateName: "Karnataka",
       verificationStatus: "unverified",
       notes:
-        "Verify any 2025 Karnataka residential rooftop add-on incentives via KREDL/ESCOM official sources. Central CFA applies via the national portal.",
+        "Verify any 2026 Karnataka residential rooftop add-on incentives via KREDL/ESCOM official sources. Central CFA applies via the national portal.",
       sources: ["https://pmsuryaghar.gov.in"],
     },
     {
@@ -163,7 +163,7 @@ export const subsidyRates2025: SubsidyRatesData = {
       stateName: "Andhra Pradesh",
       verificationStatus: "unverified",
       notes:
-        "Verify any 2025 Andhra Pradesh residential rooftop add-on incentives via NREDCAP/APDISCOM official sources. Central CFA applies via the national portal.",
+        "Verify any 2026 Andhra Pradesh residential rooftop add-on incentives via NREDCAP/APDISCOM official sources. Central CFA applies via the national portal.",
       sources: ["https://pmsuryaghar.gov.in"],
     },
     {
@@ -171,7 +171,7 @@ export const subsidyRates2025: SubsidyRatesData = {
       stateName: "Rajasthan",
       verificationStatus: "unverified",
       notes:
-        "Verify any 2025 Rajasthan residential rooftop add-on incentives via RRECL/JVVNL/AVVNL/JdVVNL official sources. Central CFA applies via the national portal.",
+        "Verify any 2026 Rajasthan residential rooftop add-on incentives via RRECL/JVVNL/AVVNL/JdVVNL official sources. Central CFA applies via the national portal.",
       sources: ["https://pmsuryaghar.gov.in"],
     },
     {
@@ -179,7 +179,7 @@ export const subsidyRates2025: SubsidyRatesData = {
       stateName: "Uttar Pradesh",
       verificationStatus: "unverified",
       notes:
-        "Uttar Pradesh rooftop solar is coordinated via UPNEDA and DISCOMs. Verify any 2025 state add-on incentives via UPNEDA official portal/notifications.",
+        "Uttar Pradesh rooftop solar is coordinated via UPNEDA and DISCOMs. Verify any 2026 state add-on incentives via UPNEDA official portal/notifications.",
       sources: ["https://pmsuryaghar.gov.in"],
     },
     {
@@ -187,7 +187,7 @@ export const subsidyRates2025: SubsidyRatesData = {
       stateName: "Tamil Nadu",
       verificationStatus: "unverified",
       notes:
-        "Verify any 2025 Tamil Nadu residential rooftop add-on incentives via TEDA/TANGEDCO official sources. Central CFA applies via the national portal.",
+        "Verify any 2026 Tamil Nadu residential rooftop add-on incentives via TEDA/TANGEDCO official sources. Central CFA applies via the national portal.",
       sources: ["https://pmsuryaghar.gov.in"],
     },
     {
@@ -195,7 +195,7 @@ export const subsidyRates2025: SubsidyRatesData = {
       stateName: "Bihar",
       verificationStatus: "unverified",
       notes:
-        "Verify any 2025 Bihar residential rooftop add-on incentives via BREDA/BSPHCL official sources. Central CFA applies via the national portal.",
+        "Verify any 2026 Bihar residential rooftop add-on incentives via BREDA/BSPHCL official sources. Central CFA applies via the national portal.",
       sources: ["https://pmsuryaghar.gov.in"],
     },
     {
@@ -203,7 +203,7 @@ export const subsidyRates2025: SubsidyRatesData = {
       stateName: "Assam",
       verificationStatus: "unverified",
       notes:
-        "Verify any 2025 Assam residential rooftop add-on incentives via AEDA/APDCL official sources. Central CFA applies via the national portal.",
+        "Verify any 2026 Assam residential rooftop add-on incentives via AEDA/APDCL official sources. Central CFA applies via the national portal.",
       sources: ["https://pmsuryaghar.gov.in"],
     },
     {
@@ -211,7 +211,7 @@ export const subsidyRates2025: SubsidyRatesData = {
       stateName: "Odisha",
       verificationStatus: "unverified",
       notes:
-        "Verify any 2025 Odisha residential rooftop add-on incentives via OREDA/TPCODL/other DISCOM official sources. Central CFA applies via the national portal.",
+        "Verify any 2026 Odisha residential rooftop add-on incentives via OREDA/TPCODL/other DISCOM official sources. Central CFA applies via the national portal.",
       sources: ["https://pmsuryaghar.gov.in"],
     },
     {
@@ -219,7 +219,7 @@ export const subsidyRates2025: SubsidyRatesData = {
       stateName: "West Bengal",
       verificationStatus: "unverified",
       notes:
-        "Verify any 2025 West Bengal residential rooftop add-on incentives via WBREDA/WBSEDCL/CESC official sources. Central CFA applies via the national portal.",
+        "Verify any 2026 West Bengal residential rooftop add-on incentives via WBREDA/WBSEDCL/CESC official sources. Central CFA applies via the national portal.",
       sources: ["https://pmsuryaghar.gov.in"],
     },
   ] as const,
@@ -229,14 +229,14 @@ export function calculateCentralSubsidyINR(systemSizeKw: number): number {
   const kw = Math.max(0, systemSizeKw);
 
   if (kw <= 0) return 0;
-  if (kw <= 1) return Math.min(subsidyRates2025.central.perKwUpTo2kW, subsidyRates2025.central.maxAmount);
-  if (kw <= 2) return Math.min(kw * subsidyRates2025.central.perKwUpTo2kW, subsidyRates2025.central.maxAmount);
+  if (kw <= 1) return Math.min(subsidyRates2026.central.perKwUpTo2kW, subsidyRates2026.central.maxAmount);
+  if (kw <= 2) return Math.min(kw * subsidyRates2026.central.perKwUpTo2kW, subsidyRates2026.central.maxAmount);
 
   // 2–3 kW: ₹60k + ₹18k for the third kW (cap at 3 kW)
   const amount =
-    subsidyRates2025.central.amountFor2kW +
-    Math.min(1, kw - 2) * subsidyRates2025.central.amountForThirdkW;
+    subsidyRates2026.central.amountFor2kW +
+    Math.min(1, kw - 2) * subsidyRates2026.central.amountForThirdkW;
 
-  return Math.min(amount, subsidyRates2025.central.maxAmount);
+  return Math.min(amount, subsidyRates2026.central.maxAmount);
 }
 

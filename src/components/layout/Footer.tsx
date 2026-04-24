@@ -17,7 +17,7 @@ const calculators = [
 
 const blogLinks = [
   { href: "/blog", label: "Solar subsidy updates" },
-  { href: "/blog/pm-surya-ghar-yojana-2025", label: "PM Surya Ghar scheme" },
+  { href: "/blog/pm-surya-ghar-yojana-2026", label: "PM Surya Ghar scheme" },
   { href: "/blog/solar-subsidy-documents-required", label: "Documents checklist" },
 ] as const;
 

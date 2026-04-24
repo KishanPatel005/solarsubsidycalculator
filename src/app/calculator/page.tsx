@@ -74,7 +74,7 @@ export default function CalculatorPage() {
       {/* Section 1 — Header */}
       <div className="space-y-3">
         <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-          Solar Subsidy Calculator India 2025
+          Solar Subsidy Calculator India 2026
         </h1>
         <p className="text-sm text-muted-foreground sm:text-base">
           Calculate your subsidy, EMI, and savings instantly
@@ -84,7 +84,7 @@ export default function CalculatorPage() {
             Based on Govt Data
           </Badge>
           <Badge variant="secondary">Free Tool</Badge>
-          <Badge variant="secondary">Updated 2025</Badge>
+          <Badge variant="secondary">Updated 2026</Badge>
         </div>
       </div>
 

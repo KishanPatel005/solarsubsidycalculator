@@ -11,11 +11,11 @@ export const dynamic = "force-static";
 export function generateMetadata(): Metadata {
   const base = getSiteUrl();
   return {
-    title: "Solar Subsidy Blog — Guides & Tips India 2025",
+    title: "Solar Subsidy Blog — Guides & Tips India 2026",
     description:
       "Expert guides on PM Surya Ghar, solar subsidy by state, how to apply, and maximize your savings.",
     openGraph: {
-      title: "Solar Subsidy Blog — Guides & Tips India 2025",
+      title: "Solar Subsidy Blog — Guides & Tips India 2026",
       description:
         "Expert guides on PM Surya Ghar, solar subsidy by state, how to apply, and maximize your savings.",
       url: `${base}/blog`,
@@ -34,7 +34,7 @@ export default function BlogPage() {
       <section className="space-y-3">
         <div className="flex flex-wrap items-center gap-2">
           <Badge className="bg-solar-600 text-white hover:bg-solar-700">
-            Updated 2025
+            Updated 2026
           </Badge>
           <Badge variant="secondary">{posts.length} Guides</Badge>
         </div>

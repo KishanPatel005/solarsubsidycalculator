@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 import { statesAndUTs } from "@/lib/data/states";
-import { subsidyRates2025 } from "@/lib/data/subsidyRates";
+import { subsidyRates2026 } from "@/lib/data/subsidyRates";
 import { formatINR } from "@/lib/utils/formatCurrency";
 
 import { Badge } from "@/components/ui/badge";
@@ -10,16 +10,16 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
 export const metadata: Metadata = {
-  title: "Solar Subsidy by State 2025 | All States & UTs",
+  title: "Solar Subsidy by State 2026 | All States & UTs",
   description:
-    "Browse solar subsidy guides for all Indian states and union territories. Check eligibility, required documents, and official portal links for PM Surya Ghar 2025.",
+    "Browse solar subsidy guides for all Indian states and union territories. Check eligibility, required documents, and official portal links for PM Surya Ghar 2026.",
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://solarsubsidycalculator.com"}/solar-subsidy`,
   },
 };
 
 function getStateBonusAmount(stateSlug: string): number {
-  const entry = subsidyRates2025.stateAdditional.find((s) => s.stateSlug === stateSlug);
+  const entry = subsidyRates2026.stateAdditional.find((s) => s.stateSlug === stateSlug);
   const amt = entry?.additionalSubsidyAmount;
   if (!amt) return 0;
   if (typeof amt.maxCap === "number") return amt.maxCap;
@@ -33,13 +33,13 @@ function stateGuideHref(slug: string) {
 }
 
 export default function SolarSubsidyIndexPage() {
-  const centralMax = subsidyRates2025.central.maxAmount;
+  const centralMax = subsidyRates2026.central.maxAmount;
 
   return (
     <div className="space-y-8 pb-10">
       <div className="space-y-2">
-        <Badge className="bg-solar-600 text-white hover:bg-solar-700">Updated 2025</Badge>
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Solar Subsidy by State (India 2025)</h1>
+        <Badge className="bg-solar-600 text-white hover:bg-solar-700">Updated 2026</Badge>
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Solar Subsidy by State (India 2026)</h1>
         <p className="max-w-2xl text-sm text-muted-foreground">
           Select your state/UT to view eligibility, documents, portal links, and a pre-filled subsidy calculator.
         </p>

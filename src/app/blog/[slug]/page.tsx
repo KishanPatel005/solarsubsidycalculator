@@ -169,7 +169,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               <div>
                 <div className="text-sm font-semibold">Solar Subsidy Calculator Team</div>
                 <div className="mt-1 text-sm text-muted-foreground">
-                  Helping Indian families navigate solar since 2025
+                  Helping Indian families navigate solar since 2026
                 </div>
               </div>
             </div>

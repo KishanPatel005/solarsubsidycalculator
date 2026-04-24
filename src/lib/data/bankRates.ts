@@ -22,13 +22,13 @@ export interface BankSolarLoanOffer {
 }
 
 /**
- * 2025 snapshot (best-effort):
+ * 2026 snapshot (best-effort):
  * - Many bank product pages and MNRE/National-Portal tables are not reliably accessible
  *   from automated fetches in this environment.
- * - These offers are therefore marked unverified unless we can pin an official 2025 page.
+ * - These offers are therefore marked unverified unless we can pin an official 2026 page.
  * - Use as a starter dataset and verify on the bank's official product page before publishing.
  */
-export const bankSolarLoanOffers2025: readonly BankSolarLoanOffer[] = [
+export const bankSolarLoanOffers2026: readonly BankSolarLoanOffer[] = [
   {
     name: "State Bank of India (SBI)",
     interestRate: "Benchmark/RLLR-linked (varies by borrower profile); PIB notes ~7% collateral-free products for RTS up to 3 kW",
@@ -42,7 +42,7 @@ export const bankSolarLoanOffers2025: readonly BankSolarLoanOffer[] = [
     verificationStatus: "unverified",
     sources: [
       "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2010133",
-      "https://solsetu.com/news/solar-news/solar-loans-india-2025-top-banks-emi-subsidies/",
+      "https://solsetu.com/news/solar-news/solar-loans-india-2026-top-banks-emi-subsidies/",
     ],
   },
   {
@@ -53,7 +53,7 @@ export const bankSolarLoanOffers2025: readonly BankSolarLoanOffer[] = [
     processingFee: "Varies (verify)",
     specialFeatures: ["Public sector solar financing options (verify latest scheme name)"],
     verificationStatus: "unverified",
-    sources: ["https://solsetu.com/news/solar-news/solar-loans-india-2025-top-banks-emi-subsidies/"],
+    sources: ["https://solsetu.com/news/solar-news/solar-loans-india-2026-top-banks-emi-subsidies/"],
   },
   {
     name: "Bank of Baroda",
@@ -63,7 +63,7 @@ export const bankSolarLoanOffers2025: readonly BankSolarLoanOffer[] = [
     processingFee: "Varies (verify)",
     specialFeatures: ["May offer solar as part of home-loan top-up/composite products"],
     verificationStatus: "unverified",
-    sources: ["https://solsetu.com/news/solar-news/solar-loans-india-2025-top-banks-emi-subsidies/"],
+    sources: ["https://solsetu.com/news/solar-news/solar-loans-india-2026-top-banks-emi-subsidies/"],
   },
   {
     name: "Union Bank of India",
@@ -73,7 +73,7 @@ export const bankSolarLoanOffers2025: readonly BankSolarLoanOffer[] = [
     processingFee: "Often nil/low for solar-specific products (verify)",
     specialFeatures: ["Standalone URTS-style schemes may exist (verify current product)"],
     verificationStatus: "unverified",
-    sources: ["https://solsetu.com/news/solar-news/solar-loans-india-2025-top-banks-emi-subsidies/"],
+    sources: ["https://solsetu.com/news/solar-news/solar-loans-india-2026-top-banks-emi-subsidies/"],
   },
   {
     name: "Canara Bank",
@@ -83,7 +83,7 @@ export const bankSolarLoanOffers2025: readonly BankSolarLoanOffer[] = [
     processingFee: "Varies (verify)",
     specialFeatures: ["Housing-cum-solar/composite products are common in PSBs (verify)"],
     verificationStatus: "unverified",
-    sources: ["https://solsetu.com/news/solar-news/solar-loans-india-2025-top-banks-emi-subsidies/"],
+    sources: ["https://solsetu.com/news/solar-news/solar-loans-india-2026-top-banks-emi-subsidies/"],
   },
   {
     name: "HDFC Bank",
@@ -93,7 +93,7 @@ export const bankSolarLoanOffers2025: readonly BankSolarLoanOffer[] = [
     processingFee: "Varies (verify)",
     specialFeatures: ["May finance rooftop solar via personal loan or home-loan top-up"],
     verificationStatus: "unverified",
-    sources: ["https://solsetu.com/news/solar-news/solar-loans-india-2025-top-banks-emi-subsidies/"],
+    sources: ["https://solsetu.com/news/solar-news/solar-loans-india-2026-top-banks-emi-subsidies/"],
   },
   {
     name: "ICICI Bank",
@@ -103,7 +103,7 @@ export const bankSolarLoanOffers2025: readonly BankSolarLoanOffer[] = [
     processingFee: "Varies (verify)",
     specialFeatures: ["May finance rooftop solar via personal loan or home-loan top-up"],
     verificationStatus: "unverified",
-    sources: ["https://solsetu.com/news/solar-news/solar-loans-india-2025-top-banks-emi-subsidies/"],
+    sources: ["https://solsetu.com/news/solar-news/solar-loans-india-2026-top-banks-emi-subsidies/"],
   },
   {
     name: "Axis Bank",
@@ -113,7 +113,7 @@ export const bankSolarLoanOffers2025: readonly BankSolarLoanOffer[] = [
     processingFee: "Varies (verify)",
     specialFeatures: ["May finance rooftop solar via personal loan or home-loan top-up"],
     verificationStatus: "unverified",
-    sources: ["https://solsetu.com/news/solar-news/solar-loans-india-2025-top-banks-emi-subsidies/"],
+    sources: ["https://solsetu.com/news/solar-news/solar-loans-india-2026-top-banks-emi-subsidies/"],
   },
 ] as const;
 

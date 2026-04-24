@@ -25,7 +25,7 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: "Solar Subsidy Calculator India 2025 | PM Surya Ghar",
+    default: "Solar Subsidy Calculator India 2026 | PM Surya Ghar",
     template: "%s | Solar Subsidy Calculator",
   },
   description:
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: getSiteUrl(),
     siteName: "Solar Subsidy Calculator",
-    title: "Solar Subsidy Calculator India 2025 | PM Surya Ghar",
+    title: "Solar Subsidy Calculator India 2026 | PM Surya Ghar",
     description:
       "Free solar subsidy calculator for India. Calculate PM Surya Ghar subsidy up to ₹78,000. Check eligibility for all 36 states. Instant results.",
     images: [
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Solar Subsidy Calculator India 2025 | PM Surya Ghar",
+    title: "Solar Subsidy Calculator India 2026 | PM Surya Ghar",
     description:
       "Free solar subsidy calculator for India. Calculate PM Surya Ghar subsidy up to ₹78,000. Check eligibility for all 36 states. Instant results.",
     images: ["/opengraph-image"],

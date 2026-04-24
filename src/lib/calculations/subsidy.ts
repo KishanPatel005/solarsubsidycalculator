@@ -1,4 +1,4 @@
-import { subsidyRates2025, calculateCentralSubsidyINR } from "@/lib/data/subsidyRates";
+import { subsidyRates2026, calculateCentralSubsidyINR } from "@/lib/data/subsidyRates";
 
 /**
  * Output of subsidy/cost/savings calculations.
@@ -77,7 +77,7 @@ export function calculateSystemSize(
 /**
  * Calculate the central subsidy for a given system size (kW).
  *
- * Logic (as requested, based on `subsidyRates2025.central`):
+ * Logic (as requested, based on `subsidyRates2026.central`):
  * - up to 2 kW: ₹30,000 per kW
  * - 3rd kW: +₹18,000
  * - max: ₹78,000
@@ -91,7 +91,7 @@ export function calculateCentralSubsidy(systemSize: number): number {
  * Calculate additional state subsidy (if available in dataset).
  *
  * Logic:
- * - Look up in `subsidyRates2025.stateAdditional` by `stateSlug`.
+ * - Look up in `subsidyRates2026.stateAdditional` by `stateSlug`.
  * - If not found OR no amount is present, return 0.
  * - If per-kW: multiply by systemSize and apply maxCap if present.
  * - If flat: return flat (apply maxCap if present).
@@ -100,7 +100,7 @@ export function calculateStateSubsidy(systemSize: number, stateSlug: string): nu
   if (!isFiniteNumber(systemSize) || systemSize <= 0) return 0;
   if (typeof stateSlug !== "string" || !stateSlug.trim()) return 0;
 
-  const entry = subsidyRates2025.stateAdditional.find((s) => s.stateSlug === stateSlug);
+  const entry = subsidyRates2026.stateAdditional.find((s) => s.stateSlug === stateSlug);
   const amount = entry?.additionalSubsidyAmount;
   if (!amount) return 0;
 
@@ -131,7 +131,7 @@ export function calculateTotalSubsidy(centralSubsidy: number, stateSubsidy: numb
 }
 
 /**
- * Estimate installed system cost in India (2025 heuristic).
+ * Estimate installed system cost in India (2026 heuristic).
  *
  * Logic (as requested): avg ₹65,000 per kW.
  */
@@ -156,7 +156,7 @@ export function calculateFinalCost(systemCost: number, totalSubsidy: number): nu
  * Logic:
  * - 1 kW generates ~120 units/month.
  * - Estimate a tariff per unit from current bill: \(tariff = monthlyBill / monthlyUnits\).
- *   Without consumption data, assume typical 2025 residential usage of ~120 units per 1 kW equivalent.
+ *   Without consumption data, assume typical 2026 residential usage of ~120 units per 1 kW equivalent.
  * - Savings = min(generatedUnits, assumedMonthlyUnits) * tariff.
  *
  * Edge cases:

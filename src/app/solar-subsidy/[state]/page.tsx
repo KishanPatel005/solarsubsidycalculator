@@ -3,9 +3,9 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { CheckCircle2, FileText, ExternalLink, Info } from "lucide-react";
 
-import { statesSubsidyContent2025 } from "@/lib/data/states-subsidy-content";
+import { statesSubsidyContent2026 } from "@/lib/data/states-subsidy-content";
 import { statesAndUTs } from "@/lib/data/states";
-import { subsidyRates2025 } from "@/lib/data/subsidyRates";
+import { subsidyRates2026 } from "@/lib/data/subsidyRates";
 import { formatINR } from "@/lib/utils/formatCurrency";
 
 import { Badge } from "@/components/ui/badge";
@@ -20,17 +20,17 @@ type PageProps = {
 };
 
 export function generateStaticParams() {
-  return statesSubsidyContent2025.map((s) => ({ state: s.stateSlug }));
+  return statesSubsidyContent2026.map((s) => ({ state: s.stateSlug }));
 }
 
 function getStateData(stateSlug: string) {
-  const content = statesSubsidyContent2025.find((s) => s.stateSlug === stateSlug);
+  const content = statesSubsidyContent2026.find((s) => s.stateSlug === stateSlug);
   const stateMeta = statesAndUTs.find((s) => s.slug === stateSlug);
   return { content, stateMeta };
 }
 
 function getStateBonusAmount(stateSlug: string): number | null {
-  const entry = subsidyRates2025.stateAdditional.find((s) => s.stateSlug === stateSlug);
+  const entry = subsidyRates2026.stateAdditional.find((s) => s.stateSlug === stateSlug);
   const amt = entry?.additionalSubsidyAmount;
   if (!amt) return null;
   // For display purposes, show max possible within our known structure.
@@ -108,8 +108,8 @@ export function generateMetadata({ params }: PageProps): Metadata {
   const stateName = content?.stateName ?? params.state;
 
   return {
-    title: `Solar Subsidy in ${stateName} 2025 | Calculator & Guide`,
-    description: `Get up to ₹78,000 solar subsidy in ${stateName}. Use our free calculator, check eligibility and apply for PM Surya Ghar Yojana 2025.`,
+    title: `Solar Subsidy in ${stateName} 2026 | Calculator & Guide`,
+    description: `Get up to ₹78,000 solar subsidy in ${stateName}. Use our free calculator, check eligibility and apply for PM Surya Ghar Yojana 2026.`,
     alternates: {
       canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://solarsubsidycalculator.com"}/solar-subsidy-${params.state}`,
     },
@@ -124,7 +124,7 @@ export default function StateSubsidyPage({ params }: PageProps) {
   const isVerified = content.verificationStatus === "verified";
   const stateBonus = getStateBonusAmount(content.stateSlug);
 
-  const centralMax = subsidyRates2025.central.maxAmount;
+  const centralMax = subsidyRates2026.central.maxAmount;
   const stateBonusText = stateBonus ? formatINR(stateBonus) : "—";
 
   // For quick summary, assume max central at 3 kW+ plus state max cap if known
@@ -163,7 +163,7 @@ export default function StateSubsidyPage({ params }: PageProps) {
       {/* 2) Hero */}
       <div className="space-y-4">
         <div className="flex flex-wrap items-center gap-2">
-          <Badge className="bg-solar-600 text-white hover:bg-solar-700">Updated 2025</Badge>
+          <Badge className="bg-solar-600 text-white hover:bg-solar-700">Updated 2026</Badge>
           {isVerified ? (
             <Badge variant="secondary">Verified</Badge>
           ) : (
@@ -172,7 +172,7 @@ export default function StateSubsidyPage({ params }: PageProps) {
         </div>
 
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-          Solar Subsidy in {stateName} 2025 — Complete Guide
+          Solar Subsidy in {stateName} 2026 — Complete Guide
         </h1>
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -203,7 +203,7 @@ export default function StateSubsidyPage({ params }: PageProps) {
         <p className="text-sm text-foreground">
           In <span className="font-semibold">{stateName}</span>, homeowners can get up to{" "}
           <span className="font-semibold">{formatINR(totalPotential)}</span> subsidy on rooftop
-          solar installation under PM Surya Ghar Yojana 2025.
+          solar installation under PM Surya Ghar Yojana 2026.
         </p>
         {!isVerified ? (
           <p className="mt-2 text-xs text-muted-foreground">
@@ -347,7 +347,7 @@ export default function StateSubsidyPage({ params }: PageProps) {
         <Accordion type="single" collapsible className="w-full">
           {[
             `How to apply for rooftop solar subsidy in ${stateName}?`,
-            `What is the maximum subsidy in ${stateName} in 2025?`,
+            `What is the maximum subsidy in ${stateName} in 2026?`,
             `How long does DISCOM approval take in ${stateName}?`,
             `What system size is best for my home in ${stateName}?`,
             `Do I need net metering for subsidy in ${stateName}?`,
@@ -355,7 +355,7 @@ export default function StateSubsidyPage({ params }: PageProps) {
             <AccordionItem key={q} value={`faq-${idx}`}>
               <AccordionTrigger>{q}</AccordionTrigger>
               <AccordionContent>
-                Refer to the steps above and the official portal for the latest DISCOM requirements. Central subsidy is capped at {formatINR(subsidyRates2025.central.maxAmount)} for 3 kW and above.
+                Refer to the steps above and the official portal for the latest DISCOM requirements. Central subsidy is capped at {formatINR(subsidyRates2026.central.maxAmount)} for 3 kW and above.
               </AccordionContent>
             </AccordionItem>
           ))}
