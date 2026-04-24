@@ -56,14 +56,14 @@ export function Header() {
           className="flex items-center gap-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
           <Logo size="md" />
-          <span className="leading-tight">
+          {/* <span className="leading-tight">
             <span className="block text-sm font-semibold text-foreground sm:text-base">
               Solar Subsidy Calculator
             </span>
             <span className="block text-xs text-muted-foreground">
               India rooftop solar schemes
             </span>
-          </span>
+          </span> */}
         </Link>
 
         <div className="hidden items-center gap-2 sm:flex">
