@@ -9,6 +9,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SchemaMarkup } from "@/components/seo/SchemaMarkup";
 import { OrganizationSchema, WebSiteSchema } from "@/components/seo/schemas";
 import { getSiteUrl } from "@/lib/siteUrl";
+import FaviconHead from "@/app/favicon-head";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -59,10 +60,11 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
-    apple: { url: "/apple-touch-icon.png" },
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    shortcut: "/favicon.ico",
   },
 };
 
@@ -97,6 +99,9 @@ export default function RootLayout({
       lang="en"
       className={cn("font-sans", geistSans.variable, geistMono.variable)}
     >
+      <head>
+        <FaviconHead />
+      </head>
       <body className="min-h-dvh bg-background antialiased">
         <SchemaMarkup schema={org} />
         <SchemaMarkup schema={website} />
