@@ -39,12 +39,29 @@ export const metadata: Metadata = {
     title: "Solar Subsidy Calculator India 2025 | PM Surya Ghar",
     description:
       "Free solar subsidy calculator for India. Calculate PM Surya Ghar subsidy up to ₹78,000. Check eligibility for all 36 states. Instant results.",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "SolarHelp — Free Solar Subsidy Calculator for India",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Solar Subsidy Calculator India 2025 | PM Surya Ghar",
     description:
       "Free solar subsidy calculator for India. Calculate PM Surya Ghar subsidy up to ₹78,000. Check eligibility for all 36 states. Instant results.",
+    images: ["/opengraph-image"],
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: { url: "/apple-touch-icon.png" },
   },
 };
 

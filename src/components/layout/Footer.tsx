@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SunMedium } from "lucide-react";
+import { Logo } from "@/components/layout/Logo";
 
 const topStates = [
   { href: "/state-guide/maharashtra", label: "Maharashtra" },
@@ -54,12 +54,8 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-2 md:gap-12">
           <div className="space-y-4">
             <Link href="/" className="inline-flex items-center gap-2">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-solar-100 text-solar-700">
-                <SunMedium className="h-5 w-5" aria-hidden="true" />
-              </span>
-              <span className="text-base font-semibold">
-                Solar Subsidy Calculator
-              </span>
+              <Logo size="sm" />
+              <span className="text-base font-semibold">Solar Subsidy Calculator</span>
             </Link>
             <p className="max-w-md text-sm text-muted-foreground">
               Tools and guides for India’s rooftop solar subsidy schemes—estimate

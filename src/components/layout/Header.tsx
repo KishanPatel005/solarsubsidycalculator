@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, SunMedium } from "lucide-react";
+import { Menu } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/layout/Logo";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -54,9 +55,7 @@ export function Header() {
           href="/"
           className="flex items-center gap-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
-          <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-solar-100 text-solar-700">
-            <SunMedium className="h-5 w-5" aria-hidden="true" />
-          </span>
+          <Logo size="md" />
           <span className="leading-tight">
             <span className="block text-sm font-semibold text-foreground sm:text-base">
               Solar Subsidy Calculator
@@ -84,10 +83,8 @@ export function Header() {
             <SheetContent side="right" className="w-[320px]">
               <SheetHeader>
                 <SheetTitle className="flex items-center gap-2">
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-solar-100 text-solar-700">
-                    <SunMedium className="h-4 w-4" aria-hidden="true" />
-                  </span>
-                  Solar Subsidy Calculator
+                  <Logo size="sm" />
+                  <span>Solar Subsidy Calculator</span>
                 </SheetTitle>
               </SheetHeader>
 
