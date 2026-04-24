@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "design:list": "getdesign list",
+    "design:add": "getdesign add opencode.ai --out ./docs/DESIGN.md",
+    "crg:build": ".\\.venv\\Scripts\\code-review-graph build",
+    "crg:status": ".\\.venv\\Scripts\\code-review-graph status",
+    "crg:visualize": ".\\.venv\\Scripts\\code-review-graph visualize"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
@@ -30,6 +35,7 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.35",
+    "getdesign": "^0.6.8",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
