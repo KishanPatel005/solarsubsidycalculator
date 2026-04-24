@@ -44,6 +44,11 @@ async function readJsonArray(filePath: string): Promise<unknown[]> {
 async function appendLead(lead: StoredLead): Promise<void> {
   const filePath = path.join(process.cwd(), "src", "data", "leads.json");
   await fs.mkdir(path.dirname(filePath), { recursive: true });
+  try {
+    await fs.access(filePath);
+  } catch {
+    await fs.writeFile(filePath, "[]\n", "utf8");
+  }
   const arr = await readJsonArray(filePath);
   arr.push(lead);
   await fs.writeFile(filePath, JSON.stringify(arr, null, 2) + "\n", "utf8");
