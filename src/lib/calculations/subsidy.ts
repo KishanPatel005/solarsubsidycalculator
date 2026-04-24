@@ -42,25 +42,33 @@ function roundTo(value: number, decimals: number): number {
  *
  * Logic (as requested):
  * - 1 kW per 100 sqft rooftop area
+ * - also consider bill-based sizing using typical India generation (~120 units/month per kW)
  * - cap at sanctioned load (kW)
  * - min 1 kW, max 10 kW
  *
  * Notes:
  * - If rooftopArea is missing/invalid, falls back to 1 kW.
- * - monthlyBill is accepted (for future refinement) but not used in this heuristic.
+ * - For bill-based sizing, we infer a tariff (₹/unit) using a conservative range (₹3–₹12).
  */
 export function calculateSystemSize(
   rooftopArea: number,
   sanctionedLoad: number,
   monthlyBill: number
 ): number {
-  void monthlyBill;
-
   const area = isFiniteNumber(rooftopArea) ? rooftopArea : 0;
   const load = isFiniteNumber(sanctionedLoad) ? sanctionedLoad : 0;
+  const bill = isFiniteNumber(monthlyBill) ? monthlyBill : 0;
 
   const areaBased = area > 0 ? area / 100 : 0;
-  const cappedByLoad = load > 0 ? Math.min(areaBased, load) : areaBased;
+
+  // Bill-based: estimate monthly units from bill, infer tariff and size to offset similar units.
+  // Clamp tariff to ₹3–₹12 per unit.
+  const assumedTariff = clamp(bill > 0 ? bill / 375 : 8, 3, 12); // 375 units ~= ₹3000 at ₹8/unit
+  const billBasedUnits = bill > 0 ? bill / assumedTariff : 0;
+  const billBased = billBasedUnits > 0 ? billBasedUnits / 120 : 0;
+
+  const recommended = Math.max(areaBased, billBased);
+  const cappedByLoad = load > 0 ? Math.min(recommended, load) : recommended;
 
   const kw = cappedByLoad > 0 ? cappedByLoad : 1;
   return clamp(roundTo(kw, 1), 1, 10);

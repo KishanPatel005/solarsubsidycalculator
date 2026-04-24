@@ -28,6 +28,9 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# lead capture storage (private)
+src/data/leads.json
+
 # vercel
 .vercel
 
