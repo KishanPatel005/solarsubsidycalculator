@@ -10,6 +10,11 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    formats: ["image/webp"],
+    deviceSizes: [375, 640, 750, 1080, 1200],
+    imageSizes: [16, 32, 64, 128, 256],
+  },
   webpack(config, { dev }) {
     // On some Windows setups, webpack's persistent pack cache can get into an
     // ENOENT loop (missing *.pack.gz) and break serving /_next/static/* (CSS/JS 404).
