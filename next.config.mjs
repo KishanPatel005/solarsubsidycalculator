@@ -2,6 +2,12 @@
 const nextConfig = {
   async rewrites() {
     return [
+      // City pages (top 20) under /solar-subsidy-[city]
+      {
+        source:
+          "/solar-subsidy-:city(ahmedabad|mumbai|delhi|bangalore|pune|hyderabad|chennai|jaipur|lucknow|surat|kolkata|chandigarh|indore|bhopal|nagpur|vadodara|coimbatore|patna|jodhpur|agra)",
+        destination: "/solar-city/:city",
+      },
       // Back-compat / requested URLs:
       // /solar-subsidy-gujarat -> /solar-subsidy/gujarat
       {
