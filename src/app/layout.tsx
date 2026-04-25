@@ -101,6 +101,8 @@ export default function RootLayout({
     >
       <head>
         <FaviconHead />
+        <link rel="alternate" hrefLang="en" href="https://solarsubsidycalculator.com/" />
+        <link rel="alternate" hrefLang="hi" href="https://solarsubsidycalculator.com/hi/" />
       </head>
       <body className="min-h-dvh bg-background antialiased">
         <SchemaMarkup data={org} />

@@ -47,6 +47,8 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+  const isHindi = pathname === "/hi" || Boolean(pathname?.startsWith("/hi/"));
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -68,6 +70,29 @@ export function Header() {
 
         <div className="hidden items-center gap-2 sm:flex">
           <NavLinks />
+          <div className="ml-2 flex items-center gap-2 text-sm">
+            <Link
+              href="/"
+              className={cn(
+                "rounded px-2 py-1 hover:bg-muted",
+                !isHindi ? "text-foreground" : "text-muted-foreground"
+              )}
+              aria-label="Switch to English"
+            >
+              EN
+            </Link>
+            <span className="text-muted-foreground">|</span>
+            <Link
+              href="/hi"
+              className={cn(
+                "rounded px-2 py-1 hover:bg-muted",
+                isHindi ? "text-foreground" : "text-muted-foreground"
+              )}
+              aria-label="Switch to Hindi"
+            >
+              हिं
+            </Link>
+          </div>
           <Button asChild className="ml-2 bg-solar-600 text-white hover:bg-solar-700">
             <Link href="/calculator">Start calculation</Link>
           </Button>
@@ -90,6 +115,29 @@ export function Header() {
 
               <div className="mt-6">
                 <NavLinks onNavigate={() => setMobileOpen(false)} />
+                <div className="mt-4 flex items-center gap-2 text-sm">
+                  <Link
+                    href="/"
+                    onClick={() => setMobileOpen(false)}
+                    className={cn(
+                      "rounded px-2 py-1 hover:bg-muted",
+                      !isHindi ? "text-foreground" : "text-muted-foreground"
+                    )}
+                  >
+                    EN
+                  </Link>
+                  <span className="text-muted-foreground">|</span>
+                  <Link
+                    href="/hi"
+                    onClick={() => setMobileOpen(false)}
+                    className={cn(
+                      "rounded px-2 py-1 hover:bg-muted",
+                      isHindi ? "text-foreground" : "text-muted-foreground"
+                    )}
+                  >
+                    हिं
+                  </Link>
+                </div>
                 <div className="mt-4">
                   <Button
                     asChild
