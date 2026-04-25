@@ -10,6 +10,7 @@ import { SubsidyCalculator } from "@/components/calculators/SubsidyCalculator";
 import { EMICalculator } from "@/components/calculators/EMICalculator";
 import { LoanCalculator } from "@/components/calculators/LoanCalculator";
 import { SavingsCalculator } from "@/components/calculators/SavingsCalculator";
+import { SchemaMarkup } from "@/components/seo/SchemaMarkup";
 
 const faqItems = [
   {
@@ -46,26 +47,20 @@ const faqItems = [
   },
 ] as const;
 
-function buildFaqJsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqItems.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: f.a,
-      },
-    })),
-  };
-}
-
 export default function CalculatorPage() {
   const [prefillLoanAmount, setPrefillLoanAmount] = useState<number | null>(null);
   const [tab, setTab] = useState<"subsidy" | "emi" | "loan" | "savings">("subsidy");
 
-  const faqJsonLd = useMemo(() => JSON.stringify(buildFaqJsonLd()), []);
+  const faqSchema = useMemo(
+    () => ({
+      mainEntity: faqItems.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    }),
+    [],
+  );
 
   useEffect(() => {
     const allowedTabs = new Set(["subsidy", "emi", "loan", "savings"]);
@@ -82,8 +77,18 @@ export default function CalculatorPage() {
 
   return (
     <div className="space-y-8">
-      {/* FAQ JSON-LD */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqJsonLd }} />
+      <SchemaMarkup
+        schemaType="WebApplication"
+        data={{
+          name: "Solar Subsidy Calculator",
+          url: "https://solarsubsidycalculator.com/calculator",
+          applicationCategory: "FinanceApplication",
+          operatingSystem: "Any",
+          offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
+          description: "Free calculator for PM Surya Ghar solar subsidy. Covers all 36 Indian states.",
+        }}
+      />
+      <SchemaMarkup schemaType="FAQPage" data={faqSchema} />
 
       {/* Section 1 — Header */}
       <div className="space-y-3">

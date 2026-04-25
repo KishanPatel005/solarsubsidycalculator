@@ -103,8 +103,8 @@ export default function RootLayout({
         <FaviconHead />
       </head>
       <body className="min-h-dvh bg-background antialiased">
-        <SchemaMarkup schema={org} />
-        <SchemaMarkup schema={website} />
+        <SchemaMarkup data={org} />
+        <SchemaMarkup data={website} />
         <Header />
         <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6">
           {children}

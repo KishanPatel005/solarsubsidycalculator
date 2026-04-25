@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { getSiteUrl } from "@/lib/siteUrl";
+import { SchemaMarkup } from "@/components/seo/SchemaMarkup";
 
 function siteUrl() {
   return getSiteUrl();
@@ -40,19 +41,16 @@ function breadcrumbSchema(post: BlogPost) {
 }
 
 function articleSchema(post: BlogPost) {
-  const imageUrl = post.heroImage.startsWith("http")
-    ? post.heroImage
-    : `${siteUrl()}${post.heroImage}`;
-
   return {
-    "@context": "https://schema.org",
-    "@type": "Article",
     headline: post.title,
-    description: post.description,
     datePublished: post.date,
-    author: { "@type": "Organization", name: "Solar Subsidy Calculator" },
-    image: imageUrl,
-    url: `${siteUrl()}/blog/${post.slug}`,
+    dateModified: post.date,
+    author: { "@type": "Organization", name: "SolarSubsidyCalculator.com" },
+    publisher: {
+      "@type": "Organization",
+      name: "SolarSubsidyCalculator.com",
+      url: "https://solarsubsidycalculator.com",
+    },
   };
 }
 
@@ -101,15 +99,15 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   }
 
   const related = getRelatedPosts(post.slug, post.category);
-  const breadcrumbJson = JSON.stringify(breadcrumbSchema(post));
-  const articleJson = JSON.stringify(articleSchema(post));
+  const breadcrumbData = breadcrumbSchema(post);
+  const articleData = articleSchema(post);
 
   const stateGuideHref = post.state ? `/solar-subsidy-${post.state}` : null;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbJson }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleJson }} />
+      <SchemaMarkup schemaType="BreadcrumbList" data={breadcrumbData} />
+      <SchemaMarkup schemaType="Article" data={articleData} />
 
       <div className="lg:grid lg:grid-cols-[1fr_320px] lg:gap-8">
         {/* LEFT */}

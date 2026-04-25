@@ -4,6 +4,7 @@ import { ArrowRight, BadgeCheck, Calculator, FileText, Leaf, PlugZap, Search, Su
 
 import { subsidyRates2026 } from "@/lib/data/subsidyRates";
 import { statesAndUTs } from "@/lib/data/states";
+import { stateData } from "@/lib/data/stateData";
 import { formatINR } from "@/lib/utils/formatCurrency";
 
 import { SubsidyCalculator } from "@/components/calculators/SubsidyCalculator";
@@ -18,7 +19,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { EMICalculator } from "@/components/calculators/EMICalculator";
 import { LoanCalculator } from "@/components/calculators/LoanCalculator";
 import { SavingsCalculator } from "@/components/calculators/SavingsCalculator";
-import { getSiteUrl } from "@/lib/siteUrl";
+import { SchemaMarkup } from "@/components/seo/SchemaMarkup";
 
 export const metadata: Metadata = {
   title: "Solar Subsidy Calculator India 2026 | PM Surya Ghar",
@@ -27,106 +28,46 @@ export const metadata: Metadata = {
   alternates: { canonical: process.env.NEXT_PUBLIC_SITE_URL || "https://solarsubsidycalculator.com" },
 };
 
-function getStateBonusAmount(stateSlug: string): number {
-  const entry = subsidyRates2026.stateAdditional.find((s) => s.stateSlug === stateSlug);
-  const amt = entry?.additionalSubsidyAmount;
-  if (!amt) return 0;
-  if (typeof amt.maxCap === "number") return amt.maxCap;
-  if (typeof amt.flat === "number") return amt.flat;
-  if (typeof amt.perKw === "number") return amt.perKw * 10;
-  return 0;
-}
-
 function stateGuideHref(slug: string) {
   // Keep URL shape consistent with the state pages task
   return `/solar-subsidy-${slug}`;
 }
 
 export default function Home() {
-  const base = getSiteUrl();
-  const orgJsonLd = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Solar Subsidy Calculator",
-    url: base,
-  });
-
-  const websiteJsonLd = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Solar Subsidy Calculator India",
-    url: base,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${base}/solar-subsidy-{search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
-  });
-
-  const faqJsonLd = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
+  const faqItems = [
       {
-        "@type": "Question",
-        name: "What is PM Surya Ghar subsidy in 2026?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Under PM Surya Ghar: Muft Bijli Yojana, the central subsidy (CFA) for residential rooftop solar is available up to ₹78,000 (for 3 kW and above).",
-        },
+        q: "What is PM Surya Ghar subsidy in 2026?",
+        a: "Under PM Surya Ghar: Muft Bijli Yojana, the central subsidy (CFA) for residential rooftop solar is available up to ₹78,000 (for 3 kW and above).",
       },
       {
-        "@type": "Question",
-        name: "Is this calculator free to use?",
-        acceptedAnswer: { "@type": "Answer", text: "Yes. This is a free tool for all 36 Indian states and union territories." },
+        q: "Is this calculator free to use?",
+        a: "Yes. This is a free tool for all 36 Indian states and union territories.",
       },
       {
-        "@type": "Question",
-        name: "Which system size is eligible for the subsidy?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Residential rooftop solar systems typically qualify when installed through approved vendors and commissioned with DISCOM inspection and net metering. Subsidy amounts are capped per scheme rules.",
-        },
+        q: "Which system size is eligible for the subsidy?",
+        a: "Residential rooftop solar systems typically qualify when installed through approved vendors and commissioned with DISCOM inspection and net metering. Subsidy amounts are capped per scheme rules.",
       },
       {
-        "@type": "Question",
-        name: "Where do I apply for the subsidy?",
-        acceptedAnswer: { "@type": "Answer", text: "Apply on the official national portal at pmsuryaghar.gov.in and follow DISCOM feasibility, net metering and commissioning steps." },
+        q: "Where do I apply for the subsidy?",
+        a: "Apply on the official national portal at pmsuryaghar.gov.in and follow DISCOM feasibility, net metering and commissioning steps.",
       },
       {
-        "@type": "Question",
-        name: "How long does it take to receive the subsidy?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Timelines vary by DISCOM. Subsidy is released via DBT after installation, inspection and commissioning are approved on the portal.",
-        },
+        q: "How long does it take to receive the subsidy?",
+        a: "Timelines vary by DISCOM. Subsidy is released via DBT after installation, inspection and commissioning are approved on the portal.",
       },
       {
-        "@type": "Question",
-        name: "Can I sell extra power back to the grid?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "If net metering is approved by your DISCOM, excess generation can be exported to the grid and credited as per your tariff/net metering rules.",
-        },
+        q: "Can I sell extra power back to the grid?",
+        a: "If net metering is approved by your DISCOM, excess generation can be exported to the grid and credited as per your tariff/net metering rules.",
       },
       {
-        "@type": "Question",
-        name: "Does every state provide extra subsidy?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Some states/UTs may provide additional benefits beyond the central subsidy, but they can vary by policy and DISCOM. Check your state guide for the latest details.",
-        },
+        q: "Does every state provide extra subsidy?",
+        a: "Some states/UTs may provide additional benefits beyond the central subsidy, but they can vary by policy and DISCOM. Check your state guide for the latest details.",
       },
       {
-        "@type": "Question",
-        name: "Do I need a rooftop inspection?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes—DISCOM inspection/commissioning is part of the standard process before subsidy is released via DBT.",
-        },
+        q: "Do I need a rooftop inspection?",
+        a: "Yes—DISCOM inspection/commissioning is part of the standard process before subsidy is released via DBT.",
       },
-    ],
-  });
+    ] as const;
 
   const topStateSlugs = [
     "gujarat",
@@ -151,9 +92,29 @@ export default function Home() {
 
   return (
     <div className="space-y-12 pb-16">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: orgJsonLd }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: websiteJsonLd }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqJsonLd }} />
+      <SchemaMarkup
+        schemaType="WebSite"
+        data={{
+          name: "Solar Subsidy Calculator India",
+          url: "https://solarsubsidycalculator.com",
+          description: "Free solar subsidy calculator for all 36 Indian states. Based on PM Surya Ghar official data.",
+          potentialAction: {
+            "@type": "SearchAction",
+            target: "https://solarsubsidycalculator.com/solar-subsidy/{search_term_string}",
+            "query-input": "required name=search_term_string",
+          },
+        }}
+      />
+      <SchemaMarkup
+        schemaType="FAQPage"
+        data={{
+          mainEntity: faqItems.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }}
+      />
 
       {/* 1) Calculator (all tabs, highlighted) */}
       <section className="space-y-4 pt-4 sm:pt-6" id="calculator">
@@ -360,19 +321,19 @@ export default function Home() {
 
         <div id="states" className="scroll-mt-24 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {topStates.map((s) => {
-            const bonus = getStateBonusAmount(s.slug);
-            const total = centralMax + bonus;
+            const bonus = stateData[s.slug]?.stateBonus ?? null;
             return (
               <Card key={s.slug} className="p-5">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <div className="text-sm font-semibold">{s.name}</div>
-                    <div className="mt-1 text-xs text-muted-foreground">
-                      Central max {formatINR(centralMax)}
-                      {bonus ? ` + state bonus up to ${formatINR(bonus)}` : ""}
-                    </div>
+                    <div className="mt-1 text-xs text-muted-foreground">Central max {formatINR(centralMax)}</div>
                   </div>
-                  <Badge variant="secondary">{formatINR(total)}</Badge>
+                  {typeof bonus === "number" ? (
+                    <Badge className="bg-emerald-600 text-white hover:bg-emerald-700">{formatINR(bonus)} bonus</Badge>
+                  ) : (
+                    <Badge variant="secondary">Central subsidy only</Badge>
+                  )}
                 </div>
 
                 <div className="mt-4">

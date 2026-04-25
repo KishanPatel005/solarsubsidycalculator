@@ -3,6 +3,12 @@ import Link from "next/link";
 import { AlertTriangle, CheckCircle2, Info } from "lucide-react";
 
 import BlogImage from "@/components/blog/BlogImage";
+import { Card } from "@/components/ui/card";
+import { SavingsCalculator } from "@/components/calculators/SavingsCalculator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { SubsidyCalculator } from "@/components/calculators/SubsidyCalculator";
+import { EMICalculator } from "@/components/calculators/EMICalculator";
+import { LoanCalculator } from "@/components/calculators/LoanCalculator";
 
 function slugFromChildren(children: React.ReactNode) {
   const text =
@@ -73,6 +79,58 @@ function CheckList(props: { items?: string[] }) {
         ))}
       </ul>
     </div>
+  );
+}
+
+function JsonLd(props: { data: Record<string, unknown> }) {
+  return (
+    <script type="application/ld+json" suppressHydrationWarning>
+      {JSON.stringify(props.data)}
+    </script>
+  );
+}
+
+function SavingsCalculatorEmbed() {
+  return (
+    <Card className="mb-6 border-amber-200 bg-amber-50/40 p-4">
+      <div className="text-sm font-semibold text-gray-900">Savings calculator</div>
+      <div className="mt-3">
+        <SavingsCalculator />
+      </div>
+    </Card>
+  );
+}
+
+function CalculatorTabsEmbed() {
+  return (
+    <Card className="mb-6 border-amber-200 bg-amber-50/40 p-4">
+      <div className="text-sm font-semibold text-gray-900">Calculator</div>
+      <div className="mt-3">
+        <Tabs defaultValue="subsidy" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
+            <TabsTrigger value="subsidy">Subsidy</TabsTrigger>
+            <TabsTrigger value="emi">EMI</TabsTrigger>
+            <TabsTrigger value="loan">Loan</TabsTrigger>
+            <TabsTrigger value="savings">Savings</TabsTrigger>
+          </TabsList>
+
+          <div className="mt-4">
+            <TabsContent value="subsidy">
+              <SubsidyCalculator defaultStateSlug="gujarat" />
+            </TabsContent>
+            <TabsContent value="emi">
+              <EMICalculator defaultPrincipal={null} />
+            </TabsContent>
+            <TabsContent value="loan">
+              <LoanCalculator />
+            </TabsContent>
+            <TabsContent value="savings">
+              <SavingsCalculator />
+            </TabsContent>
+          </div>
+        </Tabs>
+      </div>
+    </Card>
   );
 }
 
@@ -159,4 +217,7 @@ export const mdxComponents = {
   StepBox,
   CheckList,
   BlogImage,
+  JsonLd,
+  SavingsCalculatorEmbed,
+  CalculatorTabsEmbed,
 };
