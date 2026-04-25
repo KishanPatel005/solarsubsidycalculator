@@ -19,6 +19,14 @@ type PageProps = {
   params: { state: string };
 };
 
+type StateSolarFacts = {
+  heading: string;
+  discoms: ReadonlyArray<string>;
+  policyAndProcess: ReadonlyArray<string>;
+  solarPotential: ReadonlyArray<string>;
+  statePortal?: { label: string; href: string };
+};
+
 export function generateStaticParams() {
   return statesSubsidyContent2026.map((s) => ({ state: s.stateSlug }));
 }
@@ -38,6 +46,129 @@ function getStateBonusAmount(stateSlug: string): number | null {
   if (typeof amt.flat === "number") return amt.flat;
   if (typeof amt.perKw === "number") return amt.perKw * 10;
   return null;
+}
+
+function getStateSolarFacts(stateSlug: string, stateName: string): StateSolarFacts | null {
+  switch (stateSlug) {
+    case "gujarat":
+      return {
+        heading: `${stateName} Solar Facts`,
+        discoms: [
+          "UGVCL — Uttar Gujarat Vij Company (North Gujarat)",
+          "MGVCL — Madhya Gujarat Vij Company (Central Gujarat)",
+          "PGVCL — Paschim Gujarat Vij Company (Saurashtra / Kutch / West Gujarat)",
+          "DGVCL — Dakshin Gujarat Vij Company (South Gujarat)",
+        ],
+        policyAndProcess: [
+          "Gujarat Solar Power Policy 2021 (check latest amendments on official portal)",
+          "Net metering is commonly available for residential rooftop consumers (capacity limits vary by DISCOM rules)",
+          "Typical application-to-commissioning timelines can vary; many applicants see ~30–45 days depending on DISCOM workload",
+          "Empanelled vendor lists are often published on the DISCOM/portal",
+        ],
+        solarPotential: [
+          "Peak sun hours: ~5.6–6.2 hours/day (district and season dependent)",
+          "Among India’s top regions for solar irradiance",
+          "High solar potential districts: Kutch, Banaskantha, Patan, Mehsana",
+          "Ahmedabad planning average: ~5.8 peak sun hours/day",
+        ],
+        statePortal: { label: "GUVNL / Surya Gujarat portal", href: "https://suryagujarat.guvnl.in" },
+      };
+    case "maharashtra":
+      return {
+        heading: `${stateName} Solar Facts`,
+        discoms: [
+          "MSEDCL / Mahadiscom — Maharashtra State Electricity Distribution Co. Ltd.",
+          "Best to confirm your sub-division (Circle/Division) on your electricity bill before applying",
+        ],
+        policyAndProcess: [
+          "Net metering / rooftop solar approvals are processed via DISCOM feasibility + inspection flow",
+          "In metro areas, timelines can be influenced by load, transformer capacity, and local inspection scheduling",
+          "Keep consumer number, sanctioned load, and meter type handy to reduce back-and-forth",
+        ],
+        solarPotential: [
+          "Pune planning average: ~5.2–5.6 peak sun hours/day (season dependent)",
+          "Mumbai planning average: ~4.8–5.2 peak sun hours/day (higher monsoon/cloud impact)",
+          "Best results come from unshaded south-facing roofs with adequate structural clearance",
+        ],
+      };
+    case "rajasthan":
+      return {
+        heading: `${stateName} Solar Facts`,
+        discoms: [
+          "JVVNL — Jaipur Vidyut Vitran Nigam (North/East Rajasthan)",
+          "AVVNL — Ajmer Vidyut Vitran Nigam (Central/South Rajasthan)",
+          "JDVVNL — Jodhpur Vidyut Vitran Nigam (West Rajasthan)",
+        ],
+        policyAndProcess: [
+          "Rajasthan is one of India’s strongest solar states; rooftop adoption is supported by net metering frameworks",
+          "DISCOM feasibility and meter availability are common approval checkpoints",
+          "Keep rooftop ownership proof and recent bill copy ready for faster processing",
+        ],
+        solarPotential: [
+          "Jodhpur region is among India’s highest solar potential zones (very high irradiance)",
+          "Peak sun hours commonly plan around ~6.0+ hours/day in many districts (season dependent)",
+          "Low shading and dry climate typically improve annual generation consistency",
+        ],
+      };
+    case "delhi":
+      return {
+        heading: `${stateName} Solar Facts`,
+        discoms: [
+          "BSES Rajdhani Power Ltd (BRPL) — South/West Delhi areas",
+          "BSES Yamuna Power Ltd (BYPL) — Central/East Delhi areas",
+          "TPDDL — Tata Power Delhi Distribution Ltd (North/North-West Delhi areas)",
+        ],
+        policyAndProcess: [
+          "Delhi often provides state-level incentives in addition to central subsidy (verify current eligibility and caps)",
+          "Some applicants may see an additional state bonus around ₹10,000 (subject to policy and DISCOM verification)",
+          "Net metering and inspection scheduling are key steps; ensure sanctioned load and roof ownership documents are consistent",
+        ],
+        solarPotential: [
+          "Delhi/NCR planning average: ~5.0–5.5 peak sun hours/day (season dependent)",
+          "Dust/pollution can reduce output; regular module cleaning improves generation",
+          "Flat roofs make it easier to optimize tilt and avoid shading from parapets/water tanks",
+        ],
+      };
+    case "karnataka":
+      return {
+        heading: `${stateName} Solar Facts`,
+        discoms: [
+          "BESCOM — Bengaluru Electricity Supply Company (Bengaluru region)",
+          "HESCOM — Hubli Electricity Supply Company (North/West Karnataka)",
+          "MESCOM / CESC / GESCOM also serve other zones (confirm on bill)",
+        ],
+        policyAndProcess: [
+          "Karnataka rooftop approvals typically follow feasibility + installation + inspection + commissioning flow",
+          "Net metering rules and meter availability can vary by service area and sanctioned load",
+          "Bengaluru applicants should account for monsoon season when planning timelines",
+        ],
+        solarPotential: [
+          "Bengaluru planning average: ~5.0–5.4 peak sun hours/day (season dependent)",
+          "Coastal humidity and frequent clouds can reduce generation vs. north interior districts",
+          "Proper tilt + minimal shading is especially important for consistent annual savings",
+        ],
+      };
+    case "uttar-pradesh":
+      return {
+        heading: `${stateName} Solar Facts`,
+        discoms: [
+          "UPPCL umbrella + zone DISCOMs (e.g., PVVNL, MVVNL, DVVNL, PuVVNL) depending on your district",
+          "Coverage spans ~75 districts; always confirm your DISCOM name on the bill/portal",
+        ],
+        policyAndProcess: [
+          "DISCOM feasibility and net metering approvals are common checkpoints before commissioning",
+          "Rooftop structural suitability and sanctioned load can affect the approved system size",
+          "Keep KYC + bank details ready to avoid DBT delays after commissioning",
+        ],
+        solarPotential: [
+          "UP planning average: ~4.8–5.4 peak sun hours/day (east vs west and season dependent)",
+          "West UP often sees slightly higher irradiance than eastern districts",
+          "Best results come from low-shade roofs and correct tilt for latitude",
+        ],
+      };
+    default:
+      return null;
+  }
 }
 
 function buildBreadcrumbJsonLd(stateName: string, canonical: string) {
@@ -271,6 +402,76 @@ export default function StateSubsidyPage({ params }: PageProps) {
           </Card>
         </div>
       </div>
+
+      {(() => {
+        const facts = getStateSolarFacts(content.stateSlug, stateName);
+        if (!facts) return null;
+        return (
+          <div className="space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h2 className="text-xl font-semibold">{facts.heading}</h2>
+              <Badge variant="secondary">Local DISCOMs & solar potential</Badge>
+            </div>
+
+            <div className="grid gap-4 lg:grid-cols-3">
+              <Card className="p-4">
+                <p className="text-sm font-semibold text-foreground">DISCOMs in {stateName}</p>
+                <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                  {facts.discoms.map((d) => (
+                    <li key={d} className="flex items-start gap-2">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-600" />
+                      <span>{d}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+
+              <Card className="p-4">
+                <p className="text-sm font-semibold text-foreground">State policy & process notes</p>
+                <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                  {facts.policyAndProcess.map((p) => (
+                    <li key={p} className="flex items-start gap-2">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-600" />
+                      <span>{p}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+
+              <Card className="p-4">
+                <p className="text-sm font-semibold text-foreground">Solar potential in {stateName}</p>
+                <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                  {facts.solarPotential.map((s) => (
+                    <li key={s} className="flex items-start gap-2">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-600" />
+                      <span>{s}</span>
+                    </li>
+                  ))}
+                </ul>
+                {facts.statePortal ? (
+                  <div className="mt-4 rounded-md border bg-muted/30 p-3">
+                    <p className="text-xs font-semibold text-foreground">State portal</p>
+                    <Link
+                      href={facts.statePortal.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-1 inline-flex items-center gap-2 text-sm font-medium text-solar-700 hover:underline"
+                    >
+                      {facts.statePortal.label}
+                      <ExternalLink className="h-4 w-4" />
+                    </Link>
+                  </div>
+                ) : null}
+              </Card>
+            </div>
+
+            <p className="text-xs text-muted-foreground">
+              Note: Solar generation figures are planning averages. For the latest net metering and incentives, rely on your DISCOM and the
+              official portal links above.
+            </p>
+          </div>
+        );
+      })()}
 
       {/* 7) Documents */}
       <div className="space-y-4">
