@@ -91,6 +91,7 @@ export default function CalculatorPage() {
       <SchemaMarkup schemaType="FAQPage" data={faqSchema} />
 
       <div id="net-metering" className="scroll-mt-24" />
+      <div id="emi" className="scroll-mt-24" />
 
       {/* Section 1 — Header */}
       <div className="space-y-3">
