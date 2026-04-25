@@ -80,7 +80,7 @@ function downloadCsv(leads: Lead[]) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `solarhelp-leads-${date}.csv`;
+  a.download = `Solar Subsidy Calculator-leads-${date}.csv`;
   document.body.appendChild(a);
   a.click();
   a.remove();
@@ -222,7 +222,7 @@ export default function AdminLeadsPage() {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-1">
           <h1 className="text-2xl font-bold tracking-tight">
-            SolarHelp Leads Dashboard
+            Solar Subsidy Calculator Leads Dashboard
           </h1>
           <div className="flex flex-wrap items-center gap-2">
             <Badge variant="secondary">Total: {ordered.length}</Badge>

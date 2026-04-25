@@ -5,18 +5,18 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "About SolarHelp",
+  title: "About Solar Subsidy Calculator",
   description:
-    "SolarHelp is a free tool to help Indian homeowners calculate solar subsidy, understand PM Surya Ghar eligibility and prepare documents for their application.",
+    "Solar Subsidy Calculator is a free tool to help Indian homeowners calculate solar subsidy, understand PM Surya Ghar eligibility and prepare documents for their application.",
 };
 
 export default function AboutPage() {
   return (
     <div className="space-y-6 pb-10">
       <div className="space-y-2">
-        <h1 className="text-2xl font-bold tracking-tight">About SolarHelp</h1>
+        <h1 className="text-2xl font-bold tracking-tight">About Solar Subsidy Calculator</h1>
         <p className="text-sm text-muted-foreground sm:text-base">
-          SolarHelp is a free tool to help Indian homeowners calculate solar
+          Solar Subsidy Calculator is a free tool to help Indian homeowners calculate solar
           subsidy, understand PM Surya Ghar eligibility and prepare documents
           for their application.
         </p>

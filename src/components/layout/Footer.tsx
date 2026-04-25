@@ -11,8 +11,8 @@ const topStates = [
 
 const calculators = [
   { href: "/calculator", label: "Rooftop subsidy calculator" },
-  { href: "/calculator", label: "Net metering estimate" },
-  { href: "/calculator", label: "Payback period estimate" },
+  { href: "/calculator#net-metering", label: "Net metering estimate" },
+  { href: "/calculator#savings", label: "Payback period estimate" },
 ] as const;
 
 const blogLinks = [

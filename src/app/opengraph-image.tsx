@@ -37,7 +37,7 @@ export default function OpenGraphImage() {
         >
           <div style={{ fontSize: 72, lineHeight: 1 }}>☀</div>
           <div style={{ marginTop: 18, fontSize: 72, fontWeight: 800, color: "#FFFFFF" }}>
-            SolarHelp
+            Solar Subsidy Calculator
           </div>
           <div style={{ marginTop: 14, fontSize: 32, fontWeight: 600, color: "rgba(255,255,255,0.95)" }}>
             Free Solar Subsidy Calculator for India

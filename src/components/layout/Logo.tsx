@@ -29,7 +29,7 @@ export function Logo({
           <SunMedium className="h-4 w-4" aria-hidden="true" />
         </span>
         {showText ? (
-          <span className="text-base font-bold text-solar-700">SolarHelp</span>
+          <span className="text-base font-bold text-solar-700">Solar Subsidy Calculator</span>
         ) : null}
       </span>
     );
@@ -39,7 +39,7 @@ export function Logo({
     <span className={cn("inline-flex items-center gap-2", className)}>
       <Image
         src={logoSrc}
-        alt="SolarHelp"
+        alt="Solar Subsidy Calculator"
         width={showText ? Math.round(h * 4.2) : h}
         height={h}
         priority
@@ -47,7 +47,7 @@ export function Logo({
         onError={() => setErrored(true)}
       />
       {showText ? (
-        <span className="sr-only">SolarHelp</span>
+        <span className="sr-only">Solar Subsidy Calculator</span>
       ) : null}
     </span>
   );

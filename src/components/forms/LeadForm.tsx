@@ -127,7 +127,7 @@ export function LeadForm(props: LeadFormProps) {
               Get Free Solar Consultation
             </h3>
             <p className="mt-1 text-sm text-muted-foreground">
-              Join 10,000+ families who saved with solar
+              Free tool — no login, no spam
             </p>
           </div>
         </div>
