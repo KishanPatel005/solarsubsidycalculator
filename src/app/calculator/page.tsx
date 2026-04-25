@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -63,8 +63,22 @@ function buildFaqJsonLd() {
 
 export default function CalculatorPage() {
   const [prefillLoanAmount, setPrefillLoanAmount] = useState<number | null>(null);
+  const [tab, setTab] = useState<"subsidy" | "emi" | "loan" | "savings">("subsidy");
 
   const faqJsonLd = useMemo(() => JSON.stringify(buildFaqJsonLd()), []);
+
+  useEffect(() => {
+    const allowedTabs = new Set(["subsidy", "emi", "loan", "savings"]);
+
+    const syncFromHash = () => {
+      const raw = window.location.hash.replace(/^#/, "");
+      if (allowedTabs.has(raw)) setTab(raw as typeof tab);
+    };
+
+    syncFromHash();
+    window.addEventListener("hashchange", syncFromHash);
+    return () => window.removeEventListener("hashchange", syncFromHash);
+  }, []);
 
   return (
     <div className="space-y-8">
@@ -90,7 +104,14 @@ export default function CalculatorPage() {
 
       {/* Section 2 — Tabs */}
       <Card className="p-3 sm:p-4">
-        <Tabs defaultValue="subsidy" className="w-full">
+        <Tabs
+          value={tab}
+          onValueChange={(next) => {
+            setTab(next as typeof tab);
+            window.location.hash = next;
+          }}
+          className="w-full"
+        >
           <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
             <TabsTrigger value="subsidy">Subsidy</TabsTrigger>
             <TabsTrigger value="emi">EMI</TabsTrigger>

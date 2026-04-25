@@ -10,9 +10,9 @@ const topStates = [
 ] as const;
 
 const calculators = [
-  { href: "/calculator", label: "Rooftop subsidy calculator" },
-  { href: "/calculator#net-metering", label: "Net metering estimate" },
-  { href: "/calculator#savings", label: "Payback period estimate" },
+  { href: "/calculator#subsidy", label: "Rooftop subsidy calculator" },
+  { href: "/calculator#emi", label: "EMI estimate" },
+  { href: "/calculator#savings", label: "Savings & payback estimate" },
 ] as const;
 
 const blogLinks = [
