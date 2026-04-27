@@ -1,5 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async redirects() {
+    return [
+      // Back-compat: /solar-subsidy-gujarat -> /solar-subsidy/gujarat
+      {
+        source: "/solar-subsidy-:state",
+        destination: "/solar-subsidy/:state",
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return [
       // City pages (top 20) under /solar-subsidy-[city]
@@ -7,12 +17,6 @@ const nextConfig = {
         source:
           "/solar-subsidy-:city(ahmedabad|mumbai|delhi|bangalore|pune|hyderabad|chennai|jaipur|lucknow|surat|kolkata|chandigarh|indore|bhopal|nagpur|vadodara|coimbatore|patna|jodhpur|agra)",
         destination: "/solar-city/:city",
-      },
-      // Back-compat / requested URLs:
-      // /solar-subsidy-gujarat -> /solar-subsidy/gujarat
-      {
-        source: "/solar-subsidy-:state",
-        destination: "/solar-subsidy/:state",
       },
     ];
   },
