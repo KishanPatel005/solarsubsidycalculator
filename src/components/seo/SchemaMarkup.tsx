@@ -5,14 +5,18 @@ export type SchemaObject = Record<string, unknown>;
 export function SchemaMarkup(props: { schemaType?: string; data: SchemaObject }) {
   const schema: SchemaObject = {
     "@context": "https://schema.org",
-    ...(props.schemaType ? { "@type": props.schemaType } : null),
+    ...(props.schemaType ? { "@type": props.schemaType } : {}),
     ...props.data,
   };
 
+  const json = JSON.stringify(schema);
+
   return (
-    <script type="application/ld+json" suppressHydrationWarning>
-      {JSON.stringify(schema)}
-    </script>
+    <script
+      type="application/ld+json"
+      suppressHydrationWarning
+      dangerouslySetInnerHTML={{ __html: json }}
+    />
   );
 }
 
