@@ -112,7 +112,7 @@ export function LeadForm(props: LeadFormProps) {
     }
 
     // Fire Google Analytics lead event
-    const win = typeof window !== "undefined" ? (window as unknown as { gtag?: Function }) : null;
+    const win = typeof window !== "undefined" ? (window as unknown as { gtag?: (event: string, action: string, params: Record<string, unknown>) => void }) : null;
     if (win?.gtag) {
       win.gtag("event", "generate_lead", {
         currency: "INR",
