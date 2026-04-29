@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 import pngToIco from "png-to-ico";
-
+// xyz
 const root = process.cwd();
 const src = path.join(root, "public", "favicon-source.png");
 const outDir = path.join(root, "public");
