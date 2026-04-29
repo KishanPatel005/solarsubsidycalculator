@@ -10,6 +10,7 @@ import { SchemaMarkup } from "@/components/seo/SchemaMarkup";
 import { OrganizationSchema, WebSiteSchema } from "@/components/seo/schemas";
 import { getSiteUrl } from "@/lib/siteUrl";
 import FaviconHead from "@/app/favicon-head";
+import Script from "next/script";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -103,6 +104,20 @@ export default function RootLayout({
         <FaviconHead />
         <link rel="alternate" hrefLang="en" href="https://solarsubsidycalculator.com/" />
         <link rel="alternate" hrefLang="hi" href="https://solarsubsidycalculator.com/hi/" />
+        
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-Z19Y3T44GQ"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-Z19Y3T44GQ');
+          `}
+        </Script>
       </head>
       <body className="min-h-dvh bg-background antialiased">
         <SchemaMarkup data={org} />

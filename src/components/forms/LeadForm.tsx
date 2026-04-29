@@ -111,6 +111,16 @@ export function LeadForm(props: LeadFormProps) {
       return;
     }
 
+    // Fire Google Analytics lead event
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "generate_lead", {
+        currency: "INR",
+        value: values.bill,
+        calculator_type: props.calculatorType,
+        state: props.state,
+      });
+    }
+
     setSubmitted({ name: values.name, phone: values.phone });
     setSubmitting(false);
   };
