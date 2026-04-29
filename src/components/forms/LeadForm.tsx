@@ -112,8 +112,9 @@ export function LeadForm(props: LeadFormProps) {
     }
 
     // Fire Google Analytics lead event
-    if (typeof window !== "undefined" && (window as any).gtag) {
-      (window as any).gtag("event", "generate_lead", {
+    const win = typeof window !== "undefined" ? (window as unknown as { gtag?: Function }) : null;
+    if (win?.gtag) {
+      win.gtag("event", "generate_lead", {
         currency: "INR",
         value: values.bill,
         calculator_type: props.calculatorType,
