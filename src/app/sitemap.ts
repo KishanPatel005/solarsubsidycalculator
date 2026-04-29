@@ -52,8 +52,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   const statePages: MetadataRoute.Sitemap = statesAndUTs.map((s) => ({
-    // Canonical requested shape
-    url: `${base}/solar-subsidy-${s.slug}`,
+    url: `${base}/solar-subsidy/${s.slug}`,
     lastModified,
     changeFrequency: "weekly",
     priority: 0.8,

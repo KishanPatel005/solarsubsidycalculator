@@ -69,7 +69,7 @@ export default function CitySubsidyPage({ params }: PageProps) {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://solarsubsidycalculator.com" },
       { "@type": "ListItem", position: 2, name: "Solar Subsidy", item: "https://solarsubsidycalculator.com/solar-subsidy" },
-      { "@type": "ListItem", position: 3, name: city.stateName, item: `https://solarsubsidycalculator.com/solar-subsidy-${city.stateSlug}` },
+      { "@type": "ListItem", position: 3, name: city.stateName, item: `https://solarsubsidycalculator.com/solar-subsidy/${city.stateSlug}` },
       { "@type": "ListItem", position: 4, name: city.name, item: `https://solarsubsidycalculator.com/solar-subsidy-${city.slug}` },
     ],
   };
@@ -104,7 +104,7 @@ export default function CitySubsidyPage({ params }: PageProps) {
           </li>
           <li>/</li>
           <li>
-            <Link href={`/solar-subsidy-${city.stateSlug}`} className="hover:text-foreground">
+            <Link href={`/solar-subsidy/${city.stateSlug}`} className="hover:text-foreground">
               {city.stateName}
             </Link>
           </li>
@@ -147,13 +147,13 @@ export default function CitySubsidyPage({ params }: PageProps) {
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-foreground">
               For official state-level process details, see the{" "}
-              <Link href={`/solar-subsidy-${city.stateSlug}`} className="font-semibold text-solar-700 hover:underline">
+              <Link href={`/solar-subsidy/${city.stateSlug}`} className="font-semibold text-solar-700 hover:underline">
                 {city.stateName} subsidy guide
               </Link>
               .
             </p>
             <Link
-              href={`/solar-subsidy-${city.stateSlug}`}
+              href={`/solar-subsidy/${city.stateSlug}`}
               className="inline-flex items-center gap-2 text-sm font-medium text-solar-700 hover:underline"
             >
               Open state page <ExternalLink className="h-4 w-4" />

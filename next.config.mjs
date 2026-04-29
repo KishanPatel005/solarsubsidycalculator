@@ -2,9 +2,18 @@
 const nextConfig = {
   async redirects() {
     return [
+      // Legacy PHP sitemap URL -> Next sitemap
+      {
+        source: "/sitemap.php",
+        destination: "/sitemap.xml",
+        permanent: true,
+      },
       // Back-compat: /solar-subsidy-gujarat -> /solar-subsidy/gujarat
       {
-        source: "/solar-subsidy-:state",
+        // IMPORTANT: exclude our top-city pages that intentionally live at
+        // /solar-subsidy-[city] via rewrite to /solar-city/[city]
+        source:
+          "/solar-subsidy-:state((?!ahmedabad$|mumbai$|delhi$|bangalore$|pune$|hyderabad$|chennai$|jaipur$|lucknow$|surat$|kolkata$|chandigarh$|indore$|bhopal$|nagpur$|vadodara$|coimbatore$|patna$|jodhpur$|agra$)[a-z-]+)",
         destination: "/solar-subsidy/:state",
         permanent: true,
       },
