@@ -6,13 +6,22 @@ const topStates = [
   { href: "/solar-subsidy-gujarat", label: "Gujarat" },
   { href: "/solar-subsidy-rajasthan", label: "Rajasthan" },
   { href: "/solar-subsidy-karnataka", label: "Karnataka" },
-  { href: "/solar-subsidy-uttar-pradesh", label: "Uttar Pradesh" },
+  { href: "/solar-subsidy", label: "View all 36 states →" },
+] as const;
+
+const topCities = [
+  { href: "/solar-subsidy-mumbai", label: "Mumbai" },
+  { href: "/solar-subsidy-ahmedabad", label: "Ahmedabad" },
+  { href: "/solar-subsidy-delhi", label: "Delhi" },
+  { href: "/solar-subsidy-bangalore", label: "Bangalore" },
+  { href: "/solar-subsidy-pune", label: "Pune" },
 ] as const;
 
 const calculators = [
   { href: "/calculator#subsidy", label: "Rooftop subsidy calculator" },
   { href: "/calculator#emi", label: "EMI estimate" },
   { href: "/calculator#savings", label: "Savings & payback estimate" },
+  { href: "/solar-loan-calculator", label: "Solar loan calculator" },
 ] as const;
 
 const blogLinks = [
@@ -51,7 +60,7 @@ export function Footer() {
   return (
     <footer className="border-t bg-background">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <div className="grid gap-10 md:grid-cols-2 md:gap-12">
+        <div className="grid gap-10 md:grid-cols-[1fr_auto] md:gap-12">
           <div className="space-y-4">
             <Link href="/" className="inline-flex items-center gap-2">
               <Logo size="sm" />
@@ -71,9 +80,10 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="grid gap-8 sm:grid-cols-3">
-            <FooterSection title="All calculators" links={calculators} />
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <FooterSection title="Calculators" links={calculators} />
             <FooterSection title="Top states" links={topStates} />
+            <FooterSection title="Top cities" links={topCities} />
             <FooterSection title="Blogs" links={blogLinks} />
           </div>
         </div>
@@ -90,10 +100,14 @@ export function Footer() {
             <Link href="/blog/solar-subsidy-status-check" className="hover:text-foreground">
               Subsidy Status
             </Link>
+            <Link href="/sitemap.xml" className="hover:text-foreground">
+              Sitemap
+            </Link>
           </div>
         </div>
       </div>
     </footer>
   );
 }
+
 

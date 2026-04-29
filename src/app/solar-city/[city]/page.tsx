@@ -10,6 +10,7 @@ import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SchemaMarkup } from "@/components/seo/SchemaMarkup";
+import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 
 import { getSiteUrl } from "@/lib/siteUrl";
 import { getCityBySlug, getNearbyCities, topCities2026 } from "@/lib/data/cities";
@@ -88,30 +89,13 @@ export default function CitySubsidyPage({ params }: PageProps) {
       <SchemaMarkup schemaType="BreadcrumbList" data={breadcrumbData} />
       <SchemaMarkup schemaType="FAQPage" data={faqData} />
 
-      {/* Breadcrumb */}
-      <nav className="text-sm text-muted-foreground">
-        <ol className="flex flex-wrap items-center gap-2">
-          <li>
-            <Link href="/" className="hover:text-foreground">
-              Home
-            </Link>
-          </li>
-          <li>/</li>
-          <li>
-            <Link href="/solar-subsidy" className="hover:text-foreground">
-              Solar Subsidy
-            </Link>
-          </li>
-          <li>/</li>
-          <li>
-            <Link href={`/solar-subsidy/${city.stateSlug}`} className="hover:text-foreground">
-              {city.stateName}
-            </Link>
-          </li>
-          <li>/</li>
-          <li className="text-foreground">{city.name}</li>
-        </ol>
-      </nav>
+      <Breadcrumbs 
+        items={[
+          { label: "Solar Subsidy", href: "/solar-subsidy" },
+          { label: city.stateName, href: `/solar-subsidy/${city.stateSlug}` },
+          { label: city.name, active: true }
+        ]} 
+      />
 
       {/* Hero */}
       <section className="space-y-4">
@@ -269,4 +253,3 @@ export default function CitySubsidyPage({ params }: PageProps) {
     </div>
   );
 }
-

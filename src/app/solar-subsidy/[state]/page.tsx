@@ -16,6 +16,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { SubsidyCalculator } from "@/components/calculators/SubsidyCalculator";
 import { LeadForm } from "@/components/forms/LeadForm";
 import { SchemaMarkup } from "@/components/seo/SchemaMarkup";
+import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 
 type PageProps = {
   params: { state: string };
@@ -146,22 +147,13 @@ export default function StateSubsidyPage({ params }: PageProps) {
       <SchemaMarkup schemaType="BreadcrumbList" data={breadcrumbData} />
       <SchemaMarkup schemaType="FAQPage" data={faqData} />
 
-      {/* 1) Breadcrumb */}
-      <nav className="text-sm text-muted-foreground">
-        <ol className="flex flex-wrap items-center gap-2">
-          <li>
-            <Link href="/" className="hover:text-foreground">
-              Home
-            </Link>
-          </li>
-          <li>/</li>
-          <li>
-            <span className="text-muted-foreground">Solar Subsidy</span>
-          </li>
-          <li>/</li>
-          <li className="text-foreground">{stateName}</li>
-        </ol>
-      </nav>
+      <Breadcrumbs 
+        items={[
+          { label: "Solar Subsidy", href: "/solar-subsidy" },
+          { label: stateName, active: true }
+        ]} 
+      />
+
 
       {/* 2) Hero */}
       <div className="space-y-4">

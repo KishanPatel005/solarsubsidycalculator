@@ -11,6 +11,8 @@ import { EMICalculator } from "@/components/calculators/EMICalculator";
 import { LoanCalculator } from "@/components/calculators/LoanCalculator";
 import { SavingsCalculator } from "@/components/calculators/SavingsCalculator";
 import { SchemaMarkup } from "@/components/seo/SchemaMarkup";
+import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
+import { CalculatorSchema } from "@/components/seo/schemas";
 
 const faqItems = [
   {
@@ -62,6 +64,12 @@ export default function CalculatorPage() {
     [],
   );
 
+  const calcSchema = useMemo(() => CalculatorSchema({
+    name: "Solar Subsidy Calculator India",
+    url: "https://solarsubsidycalculator.com/calculator",
+    description: "Free calculator for PM Surya Ghar solar subsidy. Calculate subsidy, EMI, and savings for all 36 Indian states."
+  }), []);
+
   useEffect(() => {
     const allowedTabs = new Set(["subsidy", "emi", "loan", "savings"]);
 
@@ -77,17 +85,8 @@ export default function CalculatorPage() {
 
   return (
     <div className="space-y-8">
-      <SchemaMarkup
-        schemaType="WebApplication"
-        data={{
-          name: "Solar Subsidy Calculator",
-          url: "https://solarsubsidycalculator.com/calculator",
-          applicationCategory: "FinanceApplication",
-          operatingSystem: "Any",
-          offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
-          description: "Free calculator for PM Surya Ghar solar subsidy. Covers all 36 Indian states.",
-        }}
-      />
+      <Breadcrumbs items={[{ label: "Calculator", active: true }]} className="mb-4" />
+      <SchemaMarkup schemaType="SoftwareApplication" data={calcSchema} />
       <SchemaMarkup schemaType="FAQPage" data={faqSchema} />
 
       <div id="net-metering" className="scroll-mt-24" />
