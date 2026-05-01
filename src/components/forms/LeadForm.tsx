@@ -112,13 +112,16 @@ export function LeadForm(props: LeadFormProps) {
     }
 
     // Fire Google Analytics lead event
-    if (typeof window !== "undefined" && (window as any).gtag) {
-      (window as any).gtag("event", "generate_lead", {
-        currency: "INR",
-        value: values.bill,
-        calculator_type: props.calculatorType,
-        state: props.state,
-      });
+    if (typeof window !== "undefined" && "gtag" in window) {
+      const g = window as unknown as { gtag: (command: string, action: string, params: Record<string, unknown>) => void };
+      if (typeof g.gtag === "function") {
+        g.gtag("event", "generate_lead", {
+          currency: "INR",
+          value: values.bill,
+          calculator_type: props.calculatorType,
+          state: props.state || "india",
+        });
+      }
     }
 
     setSubmitted({ name: values.name, phone: values.phone });
