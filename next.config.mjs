@@ -24,6 +24,11 @@ const nextConfig = {
           "/solar-subsidy-:city(ahmedabad|mumbai|delhi|bangalore|pune|hyderabad|chennai|jaipur|lucknow|surat|kolkata|chandigarh|indore|bhopal|nagpur|vadodara|coimbatore|patna|jodhpur|agra)",
         destination: "/solar-city/:city",
       },
+      // State pages under /solar-subsidy-[state] (internal mapping)
+      {
+        source: "/solar-subsidy-:state((?!news$|news/.*|ahmedabad$|mumbai$|delhi$|bangalore$|pune$|hyderabad$|chennai$|jaipur$|lucknow$|surat$|kolkata$|chandigarh$|indore$|bhopal$|nagpur$|vadodara$|coimbatore$|patna$|jodhpur$|agra$)[a-z-]+)",
+        destination: "/solar-subsidy/:state",
+      },
     ];
   },
   images: {
