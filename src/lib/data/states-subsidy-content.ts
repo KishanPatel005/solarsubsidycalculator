@@ -88,19 +88,46 @@ export const statesSubsidyContent2026: readonly StateSubsidyContent[] = [
   mkStateContent({ stateSlug: "karnataka", stateName: "Karnataka" }),
   mkStateContent({ stateSlug: "kerala", stateName: "Kerala" }),
   mkStateContent({ stateSlug: "madhya-pradesh", stateName: "Madhya Pradesh" }),
-  mkStateContent({ stateSlug: "maharashtra", stateName: "Maharashtra" }),
+  mkStateContent({ 
+    stateSlug: "maharashtra", 
+    stateName: "Maharashtra",
+    officialPortalUrl: "https://www.mahadiscom.in/solar-rooftop/",
+    extraStateBenefits: [
+      "Maharashtra State Solar Policy 2023 offers additional facilitation for residential housing societies.",
+      "Simplified net metering process through MSEDCL portal."
+    ],
+    sources: ["https://www.mahadiscom.in", "https://mahaurja.com"]
+  }),
   mkStateContent({ stateSlug: "manipur", stateName: "Manipur" }),
   mkStateContent({ stateSlug: "meghalaya", stateName: "Meghalaya" }),
   mkStateContent({ stateSlug: "mizoram", stateName: "Mizoram" }),
   mkStateContent({ stateSlug: "nagaland", stateName: "Nagaland" }),
   mkStateContent({ stateSlug: "odisha", stateName: "Odisha" }),
   mkStateContent({ stateSlug: "punjab", stateName: "Punjab" }),
-  mkStateContent({ stateSlug: "rajasthan", stateName: "Rajasthan" }),
+  mkStateContent({ 
+    stateSlug: "rajasthan", 
+    stateName: "Rajasthan",
+    officialPortalUrl: "https://energy.rajasthan.gov.in/rrecl",
+    extraStateBenefits: [
+      "Rajasthan Solar Energy Policy 2019 focuses on maximizing solar potential in high-irradiation zones.",
+      "Special incentives for domestic manufacturing in some phases (verify latest status)."
+    ],
+    sources: ["https://energy.rajasthan.gov.in", "https://rrecl.rajasthan.gov.in"]
+  }),
   mkStateContent({ stateSlug: "sikkim", stateName: "Sikkim" }),
   mkStateContent({ stateSlug: "tamil-nadu", stateName: "Tamil Nadu" }),
   mkStateContent({ stateSlug: "telangana", stateName: "Telangana" }),
   mkStateContent({ stateSlug: "tripura", stateName: "Tripura" }),
-  mkStateContent({ stateSlug: "uttar-pradesh", stateName: "Uttar Pradesh" }),
+  mkStateContent({ 
+    stateSlug: "uttar-pradesh", 
+    stateName: "Uttar Pradesh",
+    officialPortalUrl: "http://upneda.in",
+    extraStateBenefits: [
+      "UP Solar Energy Policy 2022 provides additional state subsidy for residential systems up to 10 kW.",
+      "Dedicated solar cities like Ayodhya and Varanasi with priority facilitation."
+    ],
+    sources: ["http://upneda.in", "http://uppcl.org"]
+  }),
   mkStateContent({ stateSlug: "uttarakhand", stateName: "Uttarakhand" }),
   mkStateContent({ stateSlug: "west-bengal", stateName: "West Bengal" }),
 

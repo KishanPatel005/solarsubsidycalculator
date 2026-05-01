@@ -46,13 +46,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Hindi home
     { url: `${base}/hi`, lastModified, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${base}/hi/solar-subsidy-gujarat`, lastModified, changeFrequency: "weekly", priority: 0.7 },
 
     // About
     { url: `${base}/about`, lastModified, changeFrequency: "monthly", priority: 0.7 },
   ];
 
   const statePages: MetadataRoute.Sitemap = statesAndUTs.map((s) => ({
-    url: `${base}/solar-subsidy/${s.slug}`,
+    url: `${base}/solar-subsidy-${s.slug}`,
     lastModified,
     changeFrequency: "weekly",
     priority: 0.8,

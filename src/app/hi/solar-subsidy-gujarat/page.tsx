@@ -12,7 +12,13 @@ import { getSiteUrl } from "@/lib/siteUrl";
 export const metadata: Metadata = {
   title: "सोलर सब्सिडी गुजरात 2026 | PM सूर्य घर योजना",
   description: "गुजरात में PM सूर्य घर योजना के तहत सोलर सब्सिडी गाइड और कैलकुलेटर (2026)।",
-  alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_URL || getSiteUrl()}/hi/solar-subsidy-gujarat` },
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || getSiteUrl()}/hi/solar-subsidy-gujarat`,
+    languages: {
+      "en-IN": `${process.env.NEXT_PUBLIC_SITE_URL || getSiteUrl()}/solar-subsidy-gujarat`,
+      "hi-IN": `${process.env.NEXT_PUBLIC_SITE_URL || getSiteUrl()}/hi/solar-subsidy-gujarat`,
+    },
+  },
 };
 
 export default function HiGujaratPage() {

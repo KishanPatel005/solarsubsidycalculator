@@ -21,6 +21,10 @@ export const metadata: Metadata = {
     "मुफ्त सोलर सब्सिडी कैलकुलेटर - सभी 36 राज्यों के लिए। PM सूर्य घर योजना के तहत अपनी सब्सिडी की गणना करें।",
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_SITE_URL || getSiteUrl()}/hi`,
+    languages: {
+      "en-IN": `${process.env.NEXT_PUBLIC_SITE_URL || getSiteUrl()}/`,
+      "hi-IN": `${process.env.NEXT_PUBLIC_SITE_URL || getSiteUrl()}/hi`,
+    },
   },
 };
 

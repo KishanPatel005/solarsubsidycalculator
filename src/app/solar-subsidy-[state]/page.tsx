@@ -115,7 +115,13 @@ export function generateMetadata({ params }: PageProps): Metadata {
     title: `Solar Subsidy in ${stateName} 2026 | Calculator & Guide`,
     description: `Get up to ₹78,000 solar subsidy in ${stateName}. Use our free calculator, check eligibility and apply for PM Surya Ghar Yojana 2026.`,
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://solarsubsidycalculator.com"}/solar-subsidy/${params.state}`,
+      canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://solarsubsidycalculator.com"}/solar-subsidy-${params.state}`,
+      ...(params.state === "gujarat" ? {
+        languages: {
+          "en-IN": `https://solarsubsidycalculator.com/solar-subsidy-gujarat`,
+          "hi-IN": `https://solarsubsidycalculator.com/hi/solar-subsidy-gujarat`,
+        }
+      } : {})
     },
   };
 }
@@ -134,7 +140,7 @@ export default function StateSubsidyPage({ params }: PageProps) {
   // For quick summary, assume max central at 3 kW+ plus state max cap if known
   const totalPotential = centralMax + (stateBonus ?? 0);
 
-  const canonical = `https://solarsubsidycalculator.com/solar-subsidy/${content.stateSlug}`;
+  const canonical = `https://solarsubsidycalculator.com/solar-subsidy-${content.stateSlug}`;
   const breadcrumbData = buildBreadcrumbJsonLd(stateName, canonical);
   const faqData = buildFaqJsonLd(stateName, canonical);
 
@@ -456,7 +462,7 @@ export default function StateSubsidyPage({ params }: PageProps) {
               <div className="text-sm font-semibold">{s.name}</div>
               <div className="mt-1 text-xs text-muted-foreground">{s.region} • Capital: {s.capital}</div>
               <div className="mt-3">
-                <Link className="text-sm font-medium text-solar-700 hover:underline" href={`/solar-subsidy/${s.slug}`}>
+                <Link className="text-sm font-medium text-solar-700 hover:underline" href={`/solar-subsidy-${s.slug}`}>
                   View guide
                 </Link>
               </div>
