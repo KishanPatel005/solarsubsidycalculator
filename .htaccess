@@ -1,0 +1,30 @@
+RewriteEngine On
+RewriteBase /solarsubsidycalculator/
+
+# Redirect sitemap.php to sitemap.xml
+RewriteRule ^sitemap\.php$ sitemap.xml [R=301,L]
+
+# Redirect /solar-subsidy/[state] to /solar-subsidy-[state]
+# Ensure it doesn't match news or news/
+RewriteCond %{REQUEST_URI} !^/solarsubsidycalculator/solar-subsidy/(news|news/) [NC]
+RewriteRule ^solar-subsidy/([a-z-]+)$ solar-subsidy-$1 [R=301,L]
+
+# Internal Rewrite for top 20 cities: /solar-subsidy-[city] -> city.php?city=[city]
+RewriteRule ^solar-subsidy-(ahmedabad|mumbai|delhi|bangalore|pune|hyderabad|chennai|jaipur|lucknow|surat|kolkata|chandigarh|indore|bhopal|nagpur|vadodara|coimbatore|patna|jodhpur|agra)$ city.php?city=$1 [L,QSA]
+
+# Internal Rewrite for states: /solar-subsidy-[state] -> state.php?state=[state]
+# Make sure to exclude cities and news
+RewriteCond %{REQUEST_URI} !^/solarsubsidycalculator/solar-subsidy-(ahmedabad|mumbai|delhi|bangalore|pune|hyderabad|chennai|jaipur|lucknow|surat|kolkata|chandigarh|indore|bhopal|nagpur|vadodara|coimbatore|patna|jodhpur|agra)$ [NC]
+RewriteCond %{REQUEST_URI} !^/solarsubsidycalculator/solar-subsidy-(news|news/.*)$ [NC]
+RewriteRule ^solar-subsidy-([a-z-]+)$ state.php?state=$1 [L,QSA]
+
+# Internal Rewrite for single blog posts: /blog/[slug] -> blog/post.php?slug=[slug]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^blog/([a-zA-Z0-9_-]+)$ blog/post.php?slug=$1 [L,QSA]
+
+# Internal Rewrite for normal pages (remove .php extension dynamically)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([a-zA-Z0-9_-]+)$ $1.php [L]
