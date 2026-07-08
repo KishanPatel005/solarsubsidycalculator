@@ -1,0 +1,17 @@
+[
+    {
+        "id": "0d8cb2be-c99a-47ca-92e9-991ba8cd7269",
+        "timestamp": "2026-07-08T18:05:20Z",
+        "name": "Integration Test",
+        "phone": "9876543210",
+        "city": "Ahmedabad",
+        "bill": 3000,
+        "callTime": "evening",
+        "calculatorType": "subsidy",
+        "subsidyAmount": 78000,
+        "finalCost": 117000,
+        "monthlySavings": 3000,
+        "state": "gujarat",
+        "ipAddress": "::1"
+    }
+]
