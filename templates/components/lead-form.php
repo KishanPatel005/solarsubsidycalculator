@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.forEach((value, key) => { data[key] = value; });
 
         try {
-            const response = await fetch('<?= url("api/leads") ?>', {
+            const response = await fetch('<?= url("api/leads.php") ?>', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)

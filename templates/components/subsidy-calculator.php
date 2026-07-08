@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const delayPromise = new Promise(r => setTimeout(r, 1200));
 
         try {
-            const apiPromise = fetch('<?= url("api/calculate?type=subsidy") ?>', {
+            const apiPromise = fetch('<?= url("api/calculate.php?type=subsidy") ?>', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
