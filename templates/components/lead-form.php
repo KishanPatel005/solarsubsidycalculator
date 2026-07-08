@@ -1,12 +1,14 @@
 <?php
+require_once __DIR__ . '/../../bootstrap.php';
+
 // Lead Form Template
 // Accepts parameters: $calculatorType, $subsidyAmount, $finalCost, $monthlySavings, $state, $monthlyBill
-$calculatorType = $calculatorType ?? 'subsidy';
-$subsidyAmount = isset($subsidyAmount) ? (float)$subsidyAmount : null;
-$finalCost = isset($finalCost) ? (float)$finalCost : null;
-$monthlySavings = isset($monthlySavings) ? (float)$monthlySavings : null;
-$state = $state ?? '';
-$monthlyBill = $monthlyBill ?? 3000;
+$calculatorType = $_GET['calculatorType'] ?? $calculatorType ?? 'subsidy';
+$subsidyAmount = isset($_GET['subsidyAmount']) ? (float)$_GET['subsidyAmount'] : (isset($subsidyAmount) ? (float)$subsidyAmount : null);
+$finalCost = isset($_GET['finalCost']) ? (float)$_GET['finalCost'] : (isset($finalCost) ? (float)$finalCost : null);
+$monthlySavings = isset($_GET['monthlySavings']) ? (float)$_GET['monthlySavings'] : (isset($monthlySavings) ? (float)$monthlySavings : null);
+$state = $_GET['state'] ?? $state ?? '';
+$monthlyBill = $_GET['monthlyBill'] ?? $monthlyBill ?? 3000;
 
 $formId = 'lead-form-' . uniqid();
 ?>
