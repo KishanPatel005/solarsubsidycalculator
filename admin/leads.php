@@ -1,175 +1,116 @@
 <?php
 require_once __DIR__ . '/../bootstrap.php';
 
+use Core\AuthManager;
 use Controllers\AdminController;
+use Controllers\CmsController;
 use Config\Config;
 
+AuthManager::requireAuth();
+CmsController::handleRequest();
+
+$activeTab = 'leads';
+$pageTitle = 'Leads Database';
+$pageSubtitle = 'View and export customer solar consultation requests';
+
 $controller = new AdminController();
-$error = null;
+$leads = $controller->getLeads(Config::ADMIN_PIN);
+$stats = $controller->getStatsSummary($leads);
 
-// Handle PIN form submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pin'])) {
-    $enteredPin = $_POST['pin'];
-    if ($controller->authorize($enteredPin)) {
-        $_SESSION['admin_authorized'] = true;
-    } else {
-        $error = "Incorrect PIN. Try again.";
-    }
-}
-
-// Handle Logout
-if (isset($_GET['action']) && $_GET['action'] === 'logout') {
-    unset($_SESSION['admin_authorized']);
-    header("Location: " . url('admin/leads'));
-    exit();
-}
-
-$unlocked = isset($_SESSION['admin_authorized']) && $_SESSION['admin_authorized'] === true;
-
-$pageTitle = "Admin Dashboard | Solar Subsidy Calculator";
-require_once __DIR__ . '/../templates/layout/header.php';
+ob_start();
 ?>
-<div class="space-y-6 pb-12">
-    <?php if (!$unlocked): ?>
-        <!-- PIN Login Panel -->
-        <div class="flex min-h-[50vh] items-center justify-center px-4">
-            <div class="w-full max-w-md rounded-xl border bg-white p-6 shadow-sm">
-                <form method="POST" class="space-y-6">
-                    <div class="flex flex-col items-center text-center">
-                        <img src="<?= url('logo.png') ?>" alt="Solar Subsidy Calculator" class="h-10 w-auto" />
-                        <h1 class="mt-5 text-xl font-bold text-slate-800">Admin Access</h1>
-                        <p class="mt-1 text-sm text-slate-500">Enter PIN to view leads</p>
-                    </div>
+<div class="space-y-6">
+    <!-- Top Action Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <h2 class="text-lg font-bold text-slate-800">Captured Leads Directory</h2>
+        <button id="export-csv-btn" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl shadow-md transition-all inline-flex items-center gap-1.5 self-start sm:self-auto" <?= empty($leads) ? 'disabled' : '' ?>>
+            <span>📥</span>
+            <span>Export CSV Report</span>
+        </button>
+    </div>
 
-                    <div class="space-y-3">
-                        <input type="password" name="pin" required inputmode="numeric" maxlength="4" placeholder="••••" 
-                               class="w-full rounded-md border border-slate-200 px-3 py-2.5 text-center text-lg tracking-widest focus:border-orange-500 focus:outline-none transition-colors">
-                        
-                        <button type="submit" class="w-full rounded-md bg-solar-600 hover:bg-solar-700 py-2.5 text-sm font-semibold text-white transition-colors">
-                            View Leads
-                        </button>
-                        
-                        <?php if ($error): ?>
-                            <p class="text-sm text-red-600 text-center font-medium"><?= htmlspecialchars($error) ?></p>
-                        <?php endif; ?>
-                    </div>
-                </form>
-            </div>
+    <!-- Metrics Slabs -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+            <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Total Leads</div>
+            <div class="mt-1 text-2xl font-extrabold text-slate-900"><?= $stats['totalLeads'] ?></div>
         </div>
-    <?php else:
-        // Load leads & calculate metrics
-        $leads = $controller->getLeads(Config::ADMIN_PIN);
-        $stats = $controller->getStatsSummary($leads);
-    ?>
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div class="space-y-1">
-                <h1 class="text-2xl font-bold tracking-tight text-slate-800">
-                    Solar Subsidy Calculator Leads Dashboard
-                </h1>
-                <div class="flex flex-wrap items-center gap-2 text-xs">
-                    <span class="rounded-full bg-slate-100 px-3 py-1 font-semibold text-slate-600">Total Leads: <?= count($leads) ?></span>
-                </div>
-            </div>
-
-            <div class="flex flex-wrap gap-2">
-                <button id="export-csv-btn" class="rounded-md border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors inline-flex items-center gap-1.5" <?= empty($leads) ? 'disabled' : '' ?>>
-                    📥 Export CSV
-                </button>
-                <a href="?action=logout" class="rounded-md border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors inline-flex items-center gap-1.5">
-                    🚪 Logout
-                </a>
-            </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+            <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Today's Submissions</div>
+            <div class="mt-1 text-2xl font-extrabold text-slate-900"><?= $stats['todaysLeads'] ?></div>
         </div>
-
-        <!-- Summary Metrics Slabs -->
-        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <div class="rounded-xl border bg-white p-4 shadow-sm">
-                <div class="text-xs text-slate-400 uppercase font-semibold">Total Leads</div>
-                <div class="mt-1 text-xl font-bold text-slate-800"><?= $stats['totalLeads'] ?></div>
-            </div>
-            <div class="rounded-xl border bg-white p-4 shadow-sm">
-                <div class="text-xs text-slate-400 uppercase font-semibold">Today's Leads</div>
-                <div class="mt-1 text-xl font-bold text-slate-800"><?= $stats['todaysLeads'] ?></div>
-            </div>
-            <div class="rounded-xl border bg-white p-4 shadow-sm">
-                <div class="text-xs text-slate-400 uppercase font-semibold">This Week's Leads</div>
-                <div class="mt-1 text-xl font-bold text-slate-800"><?= $stats['thisWeeksLeads'] ?></div>
-            </div>
-            <div class="rounded-xl border bg-white p-4 shadow-sm">
-                <div class="text-xs text-slate-400 uppercase font-semibold">Most Common State</div>
-                <div class="mt-1 text-xl font-bold text-slate-800"><?= htmlspecialchars($stats['mostCommonState']) ?></div>
-            </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+            <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">This Week</div>
+            <div class="mt-1 text-2xl font-extrabold text-slate-900"><?= $stats['thisWeeksLeads'] ?></div>
         </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+            <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Top State</div>
+            <div class="mt-1 text-2xl font-extrabold text-slate-900 uppercase"><?= htmlspecialchars($stats['mostCommonState']) ?></div>
+        </div>
+    </div>
 
-        <!-- Leads Table -->
-        <div class="rounded-xl border bg-white overflow-hidden shadow-sm">
-            <?php if (!empty($leads)): ?>
-                <div class="w-full overflow-x-auto">
-                    <table class="w-full border-collapse text-sm text-left">
-                        <thead class="bg-orange-50 text-xs font-semibold text-slate-700 uppercase tracking-wider border-b">
-                            <tr>
-                                <th class="px-4 py-3">#</th>
-                                <th class="px-4 py-3">Date & Time</th>
-                                <th class="px-4 py-3">Name</th>
-                                <th class="px-4 py-3">Phone</th>
-                                <th class="px-4 py-3">City</th>
-                                <th class="px-4 py-3">State</th>
-                                <th class="px-4 py-3">Monthly Bill</th>
-                                <th class="px-4 py-3">Calculator</th>
-                                <th class="px-4 py-3">Call Time</th>
-                                <th class="px-4 py-3">Subsidy</th>
-                                <th class="px-4 py-3">Chat</th>
+    <!-- Leads Table -->
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <?php if (!empty($leads)): ?>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase font-semibold">
+                        <tr>
+                            <th class="px-4 py-3">#</th>
+                            <th class="px-4 py-3">Date</th>
+                            <th class="px-4 py-3">Customer Name</th>
+                            <th class="px-4 py-3">Phone</th>
+                            <th class="px-4 py-3">City / State</th>
+                            <th class="px-4 py-3">Monthly Bill</th>
+                            <th class="px-4 py-3">Calc Type</th>
+                            <th class="px-4 py-3">Est. Subsidy</th>
+                            <th class="px-4 py-3 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
+                        <?php foreach ($leads as $idx => $l):
+                            $rowNum = $idx + 1;
+                            $timeStr = !empty($l['timestamp']) ? date('d M Y, h:i A', strtotime($l['timestamp'])) : (!empty($l['created_at']) ? date('d M Y, h:i A', strtotime($l['created_at'])) : '—');
+                            $waHref = !empty($l['phone']) ? 'https://wa.me/91' . preg_replace('/\D/', '', $l['phone']) : null;
+                        ?>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="px-4 py-3 text-slate-400 font-bold"><?= $rowNum ?></td>
+                                <td class="px-4 py-3 whitespace-nowrap text-slate-500 font-mono text-[11px]"><?= $timeStr ?></td>
+                                <td class="px-4 py-3 font-bold text-slate-900"><?= htmlspecialchars($l['name'] ?? '—') ?></td>
+                                <td class="px-4 py-3"><?= htmlspecialchars($l['phone'] ?? '—') ?></td>
+                                <td class="px-4 py-3">
+                                    <span><?= htmlspecialchars($l['city'] ?? '—') ?></span>
+                                    <span class="text-slate-400 text-[10px] block uppercase"><?= htmlspecialchars($l['state'] ?? '—') ?></span>
+                                </td>
+                                <td class="px-4 py-3 font-semibold"><?= formatINR($l['bill'] ?? 0) ?></td>
+                                <td class="px-4 py-3 uppercase text-[10px] font-semibold text-slate-500"><?= htmlspecialchars($l['calculatorType'] ?? 'subsidy') ?></td>
+                                <td class="px-4 py-3 font-bold text-orange-600"><?= formatINR($l['subsidyAmount'] ?? 0) ?></td>
+                                <td class="px-4 py-3 text-right space-x-1 whitespace-nowrap">
+                                    <?php if ($waHref): ?>
+                                        <a href="<?= $waHref ?>" target="_blank" rel="noreferrer" class="px-2 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded text-[11px] font-semibold">WhatsApp</a>
+                                    <?php endif; ?>
+                                    <form method="POST" action="" class="inline" onsubmit="return confirm('Delete this lead entry?')">
+                                        <input type="hidden" name="action" value="delete_lead">
+                                        <input type="hidden" name="id" value="<?= htmlspecialchars($l['id'] ?? '') ?>">
+                                        <button type="submit" class="px-2 py-1 bg-red-50 text-red-600 hover:bg-red-100 rounded text-[11px] font-semibold">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody class="divide-y text-slate-600">
-                            <?php foreach ($leads as $idx => $l):
-                                $rowNum = $idx + 1;
-                                $timeStr = !empty($l['timestamp']) ? date('d M Y, h:i A', strtotime($l['timestamp'])) : '—';
-                                $waHref = !empty($l['phone']) ? 'https://wa.me/91' . preg_replace('/\D/', '', $l['phone']) : null;
-                            ?>
-                                <tr class="hover:bg-slate-50/50">
-                                    <td class="px-4 py-3 font-medium"><?= $rowNum ?></td>
-                                    <td class="px-4 py-3 whitespace-nowrap"><?= $timeStr ?></td>
-                                    <td class="px-4 py-3 font-semibold text-slate-800"><?= htmlspecialchars($l['name'] ?? '—') ?></td>
-                                    <td class="px-4 py-3"><?= htmlspecialchars($l['phone'] ?? '—') ?></td>
-                                    <td class="px-4 py-3"><?= htmlspecialchars($l['city'] ?? '—') ?></td>
-                                    <td class="px-4 py-3 uppercase text-[11px]"><?= htmlspecialchars($l['state'] ?? '—') ?></td>
-                                    <td class="px-4 py-3 font-semibold"><?= formatINR($l['bill'] ?? 0) ?></td>
-                                    <td class="px-4 py-3 capitalize"><?= htmlspecialchars($l['calculatorType'] ?? '—') ?></td>
-                                    <td class="px-4 py-3 capitalize"><?= htmlspecialchars($l['callTime'] ?? '—') ?></td>
-                                    <td class="px-4 py-3 font-bold text-orange-600"><?= formatINR($l['subsidyAmount'] ?? 0) ?></td>
-                                    <td class="px-4 py-3">
-                                        <?php if ($waHref): ?>
-                                            <a href="<?= $waHref ?>" target="_blank" rel="noreferrer" class="rounded border p-1 px-2.5 bg-emerald-50 text-emerald-700 border-emerald-200 text-xs font-semibold hover:bg-emerald-100 transition-colors inline-flex items-center gap-1">
-                                                💬 WhatsApp
-                                            </a>
-                                        <?php else: ?>
-                                            —
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
 
-                <!-- Safe leads list payload passed directly to Javascript downloader -->
-                <script>
-                    const leadsData = <?= json_encode($leads) ?>;
-                </script>
-            <?php else: ?>
-                <div class="p-8 text-center space-y-4">
-                    <p class="text-sm text-slate-500">
-                        No leads registered yet. <br />
-                        Promote your web app to start receiving consultation details!
-                    </p>
-                    <a href="<?= url('/') ?>" class="rounded-md bg-solar-600 px-4 py-2 text-sm font-semibold text-white hover:bg-solar-700 transition-colors inline-block">
-                        Back to site
-                    </a>
-                </div>
-            <?php endif; ?>
-        </div>
-    <?php endif; ?>
+            <script>
+                const leadsData = <?= json_encode($leads) ?>;
+            </script>
+        <?php else: ?>
+            <div class="p-12 text-center text-slate-500 space-y-3">
+                <span class="text-4xl block">📥</span>
+                <p class="text-sm font-semibold">No leads registered yet.</p>
+            </div>
+        <?php endif; ?>
+    </div>
 </div>
 
 <script>
@@ -178,13 +119,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!exportBtn || typeof leadsData === 'undefined') return;
 
     exportBtn.addEventListener('click', () => {
-        const headers = [
-            "#", "Date & Time", "Name", "Phone", "City", "State", "Monthly Bill", "Calculator Used", "Call Time", "Subsidy Amount"
-        ];
-
+        const headers = ["#", "Date & Time", "Name", "Phone", "City", "State", "Monthly Bill", "Calculator Used", "Call Time", "Subsidy Amount"];
         const rows = leadsData.map((l, idx) => [
             idx + 1,
-            l.timestamp || '',
+            l.timestamp || l.created_at || '',
             l.name || '',
             l.phone || '',
             l.city || '',
@@ -206,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const link = document.createElement('a');
         
         link.setAttribute('href', url);
-        link.setAttribute('download', `Solar-Subsidy-Calculator-Leads-${new Date().toISOString().slice(0, 10)}.csv`);
+        link.setAttribute('download', `Solar-Subsidy-Leads-${new Date().toISOString().slice(0, 10)}.csv`);
         link.style.visibility = 'hidden';
         document.body.appendChild(link);
         link.click();
@@ -214,4 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
-<?php require_once __DIR__ . '/../templates/layout/footer.php'; ?>
+<?php
+$adminContent = ob_get_clean();
+require_once __DIR__ . '/layout.php';
+?>

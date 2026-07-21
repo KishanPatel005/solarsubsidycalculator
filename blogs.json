@@ -1,0 +1,16 @@
+[
+    {
+        "id": "blog_6a5fab2a8ac65",
+        "title": "Test Blog Post",
+        "slug": "test-blog-posttest-blog-post",
+        "category": "Scheme Guide",
+        "description": "This is a test blog post.",
+        "content": "<p>Test content for the blog post. This is a dynamic post.<\/p>",
+        "cover_image": "",
+        "reading_time": "5 min3 min",
+        "author": "Solar ExpertAdmin",
+        "is_published": 0,
+        "created_at": "2026-07-21 19:25:27",
+        "updated_at": "2026-07-21 19:25:27"
+    }
+]

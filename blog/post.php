@@ -3,30 +3,52 @@ require_once __DIR__ . '/../bootstrap.php';
 
 use Core\MdxParser;
 
+use Repository\RepositoryFactory;
+
 $slug = $_GET['slug'] ?? '';
-$blogsDir = __DIR__ . '/../content/blogs/';
-$filepath = $blogsDir . $slug . '.mdx';
+$blogRepo = RepositoryFactory::create('blog');
+$dynamicBlog = $blogRepo->getBySlug($slug);
 
-$parsed = MdxParser::parse($filepath);
+$meta = [];
+$html = '';
 
-if (!$parsed) {
-    // 404 Not Found
-    http_response_code(404);
-    $pageTitle = "Page Not Found | Solar Subsidy Blog";
-    require_once __DIR__ . '/../templates/layout/header.php';
-    ?>
-    <div class="py-12 text-center space-y-4">
-        <h1 class="text-3xl font-bold text-slate-800">Article Not Found</h1>
-        <p class="text-slate-500">The blog post you are looking for does not exist or has been removed.</p>
-        <a href="<?= url('blog') ?>" class="inline-block rounded-md bg-solar-600 px-4 py-2 text-sm font-semibold text-white hover:bg-solar-700">Go to Blog Index</a>
-    </div>
-    <?php
-    require_once __DIR__ . '/../templates/layout/footer.php';
-    exit();
+if ($dynamicBlog) {
+    $meta = [
+        'title' => $dynamicBlog['title'],
+        'description' => $dynamicBlog['description'] ?? '',
+        'category' => $dynamicBlog['category'] ?? 'General',
+        'readingTime' => $dynamicBlog['reading_time'] ?? '5 min',
+        'author' => $dynamicBlog['author'] ?? 'Solar Expert',
+        'date' => $dynamicBlog['created_at'] ?? date('Y-m-d'),
+        'heroImage' => $dynamicBlog['cover_image'] ?? ''
+    ];
+    $html = $dynamicBlog['content'];
+} else {
+    // Fallback to static MDX parser
+    $blogsDir = __DIR__ . '/../content/blogs/';
+    $filepath = $blogsDir . $slug . '.mdx';
+
+    $parsed = MdxParser::parse($filepath);
+
+    if (!$parsed) {
+        // 404 Not Found
+        http_response_code(404);
+        $pageTitle = "Page Not Found | Solar Subsidy Blog";
+        require_once __DIR__ . '/../templates/layout/header.php';
+        ?>
+        <div class="py-12 text-center space-y-4">
+            <h1 class="text-3xl font-bold text-slate-800">Article Not Found</h1>
+            <p class="text-slate-500">The blog post you are looking for does not exist or has been removed.</p>
+            <a href="<?= url('blog') ?>" class="inline-block rounded-md bg-solar-600 px-4 py-2 text-sm font-semibold text-white hover:bg-solar-700">Go to Blog Index</a>
+        </div>
+        <?php
+        require_once __DIR__ . '/../templates/layout/footer.php';
+        exit();
+    }
+
+    $meta = $parsed['meta'];
+    $html = $parsed['html'];
 }
-
-$meta = $parsed['meta'];
-$html = $parsed['html'];
 
 // Extract dynamic Table of Contents from H2 tags
 $toc = [];
@@ -39,24 +61,8 @@ if (preg_match_all('/<h2 id="(.*?)".*?>(.*?)<\/h2>/s', $html, $tocMatches, PREG_
     }
 }
 
-// Related articles list (other posts in category or date)
-$related = [];
-if (is_dir($blogsDir)) {
-    $files = scandir($blogsDir);
-    foreach ($files as $file) {
-        if (pathinfo($file, PATHINFO_EXTENSION) === 'mdx') {
-            $s = pathinfo($file, PATHINFO_FILENAME);
-            if ($s !== $slug) {
-                $p = MdxParser::parse($blogsDir . $file);
-                if ($p && isset($p['meta'])) {
-                    $p['meta']['slug'] = $s;
-                    $related[] = $p['meta'];
-                }
-            }
-        }
-    }
-}
-$related = array_slice($related, 0, 4);
+// Related articles list via Repository
+$related = $blogRepo->getRelated($slug, 3);
 
 $pageTitle = htmlspecialchars($meta['title'] ?? 'Solar Subsidy Blog Post');
 $pageDescription = htmlspecialchars($meta['description'] ?? '');

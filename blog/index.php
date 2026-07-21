@@ -5,7 +5,7 @@ require_once __DIR__ . '/../templates/layout/header.php';
 
 use Core\MdxParser;
 
-// Scan directory for blogs
+// Scan directory for static MDX blogs
 $blogsDir = __DIR__ . '/../content/blogs/';
 $posts = [];
 
@@ -18,14 +18,32 @@ if (is_dir($blogsDir)) {
             if ($parsed && isset($parsed['meta'])) {
                 $meta = $parsed['meta'];
                 $meta['slug'] = $slug;
-                // Default date fallback
                 if (!isset($meta['date'])) {
                     $meta['date'] = '1970-01-01';
                 }
+                $meta['is_mdx'] = true;
                 $posts[] = $meta;
             }
         }
     }
+}
+
+// Fetch dynamic blogs from Repository
+use Repository\RepositoryFactory;
+$blogRepo = RepositoryFactory::create('blog');
+$dynamicBlogs = $blogRepo->getAll(true);
+
+foreach ($dynamicBlogs as $db) {
+    $posts[] = [
+        'title' => $db['title'],
+        'slug' => $db['slug'],
+        'category' => $db['category'] ?? 'General',
+        'description' => $db['description'] ?? '',
+        'readingTime' => $db['reading_time'] ?? '5 min',
+        'date' => $db['created_at'] ?? date('Y-m-d'),
+        'author' => $db['author'] ?? 'Solar Expert',
+        'is_mdx' => false
+    ];
 }
 
 // Sort posts by date descending

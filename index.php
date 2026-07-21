@@ -120,52 +120,104 @@ foreach ($topStateSlugs as $slug) {
         </div>
     </section>
 
-    <!-- 3) How it works -->
-    <section class="space-y-6">
+    <!-- 3) Solar Subsidy Process Timeline -->
+    <section class="space-y-6" id="process">
         <div class="space-y-2">
-            <h2 class="text-2xl font-bold tracking-tight text-slate-800">How to Get Solar Subsidy in 3 Steps</h2>
+            <div class="inline-flex items-center gap-1.5 rounded-full bg-orange-100 px-3 py-1 text-xs font-bold text-orange-700">
+                <span>🔄 Step-by-Step Guide</span>
+            </div>
+            <h2 class="text-2xl font-bold tracking-tight text-slate-800">Solar Subsidy Application Process</h2>
             <p class="text-sm text-slate-500">
-                A simple process: estimate your subsidy, apply on the official portal, and start saving.
+                Follow this official 5-step workflow to get your rooftop solar installed and subsidy credited.
             </p>
         </div>
 
-        <div class="grid gap-4 sm:grid-cols-3">
-            <div class="rounded-xl border bg-white p-5 shadow-sm flex items-start gap-4">
-                <div class="rounded-full bg-orange-50 p-2 text-orange-700">
-                    🧮
+        <?php
+        use Repository\RepositoryFactory;
+        $procRepo = RepositoryFactory::create('process');
+        $dynamicSteps = $procRepo->getAll(true);
+        ?>
+
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            <?php if (!empty($dynamicSteps)): foreach ($dynamicSteps as $p): ?>
+                <div class="rounded-xl border bg-white p-5 shadow-sm space-y-3 hover:border-orange-200 transition-all flex flex-col justify-between">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="rounded-full bg-orange-50 text-solar-700 font-extrabold text-xs px-2.5 py-1 border border-orange-100">
+                                Step <?= (int)($p['step_number'] ?? 1) ?>
+                            </span>
+                        </div>
+                        <h3 class="text-sm font-bold text-slate-900 leading-snug">
+                            <?= htmlspecialchars($p['title']) ?>
+                        </h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            <?= htmlspecialchars($p['short_description']) ?>
+                        </p>
+                    </div>
+                    <?php if (!empty($p['detailed_content'])): ?>
+                        <p class="text-[11px] text-slate-400 border-t border-slate-100 pt-2 italic">
+                            <?= htmlspecialchars($p['detailed_content']) ?>
+                        </p>
+                    <?php endif; ?>
                 </div>
-                <div>
-                    <div class="text-sm font-semibold text-slate-800">Step 1: Calculate</div>
-                    <p class="mt-1 text-sm text-slate-500">Use our free calculator.</p>
-                </div>
-            </div>
-            <div class="rounded-xl border bg-white p-5 shadow-sm flex items-start gap-4">
-                <div class="rounded-full bg-orange-50 p-2 text-orange-700">
-                    📝
-                </div>
-                <div>
-                    <div class="text-sm font-semibold text-slate-800">Step 2: Apply</div>
-                    <p class="mt-1 text-sm text-slate-500">
-                        Submit on 
-                        <a href="https://pmsuryaghar.gov.in" target="_blank" rel="noreferrer" class="underline font-semibold hover:text-solar-700">
-                            pmsuryaghar.gov.in
-                        </a>.
-                    </p>
-                </div>
-            </div>
-            <div class="rounded-xl border bg-white p-5 shadow-sm flex items-start gap-4">
-                <div class="rounded-full bg-orange-50 p-2 text-orange-700">
-                    ☀️
-                </div>
-                <div>
-                    <div class="text-sm font-semibold text-slate-800">Step 3: Save</div>
-                    <p class="mt-1 text-sm text-slate-500">Get subsidy + reduce bills.</p>
-                </div>
-            </div>
+            <?php endforeach; else: ?>
+                <div class="col-span-5 text-center text-xs text-slate-500 py-4">No process steps published yet.</div>
+            <?php endif; ?>
         </div>
     </section>
 
-    <!-- 4) Why solar -->
+    <!-- 4) Daily Solar Updates & Industry News -->
+    <section class="space-y-6" id="updates">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div class="space-y-1">
+                <div class="inline-flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-1 text-xs font-bold text-purple-700">
+                    <span>📰 Daily Solar Updates</span>
+                </div>
+                <h2 class="text-2xl font-bold tracking-tight text-slate-800">Latest Industry Circulars & Policies</h2>
+            </div>
+            <a href="<?= url('daily-updates.php') ?>" class="text-xs font-bold text-solar-700 hover:underline inline-flex items-center gap-1">
+                View All News & Circulars →
+            </a>
+        </div>
+
+        <?php
+        $newsRepo = RepositoryFactory::create('news');
+        $dynamicNews = $newsRepo->getAll(false, 3);
+        ?>
+
+        <div class="grid gap-6 sm:grid-cols-3">
+            <?php if (!empty($dynamicNews)): foreach ($dynamicNews as $n):
+                $newsUrl = url('daily-update/' . $n['slug']);
+                $pubDate = date('d M Y', strtotime($n['published_at']));
+            ?>
+                <article class="rounded-2xl border bg-white p-5 shadow-sm flex flex-col justify-between space-y-3 hover:border-purple-200 transition-all">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between text-xs text-slate-400">
+                            <span class="rounded bg-purple-50 text-purple-700 font-semibold px-2 py-0.5 text-[10px] uppercase">
+                                <?= htmlspecialchars($n['category']) ?>
+                            </span>
+                            <span><?= $pubDate ?></span>
+                        </div>
+                        <h3 class="text-sm font-bold text-slate-900 hover:text-purple-600 leading-snug">
+                            <a href="<?= $newsUrl ?>"><?= htmlspecialchars($n['title']) ?></a>
+                        </h3>
+                        <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed">
+                            <?= htmlspecialchars($n['snippet']) ?>
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+                        <a href="<?= $newsUrl ?>" class="text-xs font-bold text-purple-600 hover:underline">
+                            Read Update →
+                        </a>
+                    </div>
+                </article>
+            <?php endforeach; else: ?>
+                <div class="sm:col-span-3 text-center text-xs text-slate-500 py-4">No daily updates published yet.</div>
+            <?php endif; ?>
+        </div>
+    </section>
+
+    <!-- 5) Why solar -->
     <section class="space-y-6">
         <div class="space-y-2">
             <h2 class="text-2xl font-bold tracking-tight text-slate-800">Why Install Solar in 2026?</h2>
@@ -204,7 +256,7 @@ foreach ($topStateSlugs as $slug) {
         </div>
     </section>
 
-    <!-- 5) State guide -->
+    <!-- 6) State guide -->
     <section class="space-y-6" id="states">
         <div class="space-y-2">
             <h2 class="text-2xl font-bold tracking-tight text-slate-800">Solar Subsidy by State</h2>
@@ -244,56 +296,33 @@ foreach ($topStateSlugs as $slug) {
         </div>
     </section>
 
-    <!-- 6) Trending / urgency -->
-    <section class="space-y-4">
-        <div class="space-y-2">
-            <h2 class="text-2xl font-bold tracking-tight text-slate-800">Solar Subsidy Deadline — Act Now</h2>
-        </div>
-
-        <div class="rounded-xl border border-orange-200 bg-orange-50/70 p-6 shadow-sm">
-            <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                    <p class="text-sm font-semibold text-slate-800">
-                        PM Surya Ghar scheme deadline approaching. 1 crore home target nearly reached.
-                    </p>
-                    <p class="mt-1 text-sm text-slate-500">Check eligibility, documents and apply through the official portal.</p>
-                </div>
-                <a href="#calculator" class="rounded-md bg-solar-600 px-4 py-2 text-sm font-semibold text-white hover:bg-solar-700 transition-colors inline-flex items-center justify-center gap-2">
-                    Check if You're Eligible →
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- 7) FAQ -->
-    <section class="space-y-4">
+    <!-- 7) FAQ (Loaded Dynamically from Backend Repository) -->
+    <section class="space-y-4" id="faqs">
         <h2 class="text-2xl font-bold tracking-tight text-slate-800">Frequently Asked Questions</h2>
         <div class="space-y-2" id="faq-accordion">
             <?php
-            $faqItems = [
-                ['q' => "How much subsidy will I get for rooftop solar in 2026?", 'a' => "Central subsidy is available up to ₹78,000 (cap for 3 kW and above). Some states may have additional benefits depending on policy and DISCOM."],
-                ['q' => "Is the calculator accurate for my state?", 'a' => "The calculator uses official central subsidy rates and includes state add-ons when verified/available. Always confirm final eligibility with your DISCOM and the official portal."],
-                ['q' => "Where can I apply for PM Surya Ghar subsidy?", 'a' => "Apply on the official national portal at pmsuryaghar.gov.in and follow feasibility, installation and commissioning steps."],
-                ['q' => "Do I need net metering?", 'a' => "Net metering (or an approved alternative) and DISCOM commissioning are typically required before subsidy is released."],
-                ['q' => "How long does the process take?", 'a' => "Timelines vary by DISCOM and vendor. Subsidy is released after installation, inspection and commissioning approval on the portal."],
-                ['q' => "Can I finance solar with a loan?", 'a' => "Yes—many banks offer solar loans. Use our EMI and loan calculators to estimate monthly payments."],
-                ['q' => "What documents are required?", 'a' => "Usually electricity bill/consumer number, ID/address proof, bank details for DBT, and rooftop ownership/authorization as required by your DISCOM."],
-                ['q' => "How do I choose the right system size?", 'a' => "Use your monthly bill, rooftop area and sanctioned load to estimate the recommended system size with our calculator."]
-            ];
-            foreach ($faqItems as $idx => $faq):
+            $faqRepo = RepositoryFactory::create('faq');
+            $dynamicFaqs = $faqRepo->getAll(true);
+            if (!empty($dynamicFaqs)):
+                foreach ($dynamicFaqs as $idx => $faq):
             ?>
                 <div class="border rounded-lg bg-white overflow-hidden shadow-sm">
                     <button class="faq-btn w-full px-5 py-4 text-left font-semibold text-slate-800 hover:bg-slate-50 flex items-center justify-between focus:outline-none">
-                        <span><?= htmlspecialchars($faq['q']) ?></span>
-                        <svg class="h-4 w-4 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <span><?= htmlspecialchars($faq['question']) ?></span>
+                        <svg class="h-4 w-4 transform transition-transform text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
-                    <div class="faq-answer px-5 py-4 border-t text-sm text-slate-600 hidden leading-relaxed">
-                        <?= htmlspecialchars($faq['a']) ?>
+                    <div class="faq-answer px-5 py-4 border-t text-sm text-slate-600 hidden leading-relaxed bg-slate-50/50">
+                        <?= htmlspecialchars($faq['answer']) ?>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            <?php 
+                endforeach;
+            else:
+            ?>
+                <div class="p-6 text-center text-xs text-slate-500 border rounded-lg bg-white">No FAQs published yet.</div>
+            <?php endif; ?>
         </div>
     </section>
 

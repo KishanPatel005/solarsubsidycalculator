@@ -1,0 +1,38 @@
+[
+    {
+        "id": "news_1",
+        "title": "MNRE Issues Mandatory ALMM Compliance Notice for PM Surya Ghar Rooftop Projects",
+        "slug": "mnre-almm-compliance-pm-surya-ghar-2026",
+        "category": "Policy Circular",
+        "snippet": "Ministry of New & Renewable Energy mandates domestic solar cell and module sourcing under ALMM List I to qualify for direct consumer subsidy disbursement.",
+        "content": "<p>The Ministry of New and Renewable Energy (MNRE) has issued fresh guidelines reiterating that all residential rooftop solar systems installed under the PM Surya Ghar: Muft Bijli Yojana must exclusively use solar PV modules listed under the Approved List of Models and Manufacturers (ALMM).<\/p><p>Installers and consumers are advised to verify vendor ALMM certificates before signing procurement contracts to prevent delays in Direct Benefit Transfer (DBT) processing.<\/p>",
+        "image_url": "logo.png",
+        "is_featured": 1,
+        "published_at": "2026-07-21 19:19:05",
+        "created_at": "2026-07-21 19:19:05"
+    },
+    {
+        "id": "news_2",
+        "title": "National Portal Fast-Tracks Net-Meter Approvals to 15 Days Across Major DISCOMs",
+        "slug": "fast-track-net-meter-approvals-15-days",
+        "category": "DISCOM Updates",
+        "snippet": "State electricity distribution companies in Gujarat, Maharashtra, Delhi, and UP streamline meter inspection workflows to accelerate commissioning.",
+        "content": "<p>State DISCOMs across key regions have adopted automated net-metering dispatch protocols. Following installation submission on the National Portal, feasibility inspections and meter replacement will complete within a strict 15-day window.<\/p>",
+        "image_url": "logo.png",
+        "is_featured": 1,
+        "published_at": "2026-07-20 19:19:05",
+        "created_at": "2026-07-20 19:19:05"
+    },
+    {
+        "id": "news_3",
+        "title": "Public Sector Banks Roll Out Concessional 7% Interest Rates for Residential Solar Loans",
+        "slug": "concessional-solar-loan-rates-public-banks-2026",
+        "category": "Solar Finance",
+        "snippet": "State Bank of India, Punjab National Bank, and Canara Bank extend collateral-free solar rooftop financing options with collateral-free limits up to \u20b96 Lakhs.",
+        "content": "<p>In line with government priority sector lending directives, leading public sector banks have introduced streamlined digital loan approvals for residential solar rooftop installations up to 10 kW capacity with minimal documentation.<\/p>",
+        "image_url": "logo.png",
+        "is_featured": 0,
+        "published_at": "2026-07-19 19:19:05",
+        "created_at": "2026-07-19 19:19:05"
+    }
+]

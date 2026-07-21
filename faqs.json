@@ -1,0 +1,38 @@
+[
+    {
+        "id": "faq_1",
+        "question": "How much subsidy will I get for a 3 kW solar rooftop system?",
+        "answer": "Under PM Surya Ghar Muft Bijli Yojana, a 3 kW system receives a maximum Central Financial Assistance (CFA) subsidy of \u20b978,000 (\u20b930,000 per kW for first 2 kW + \u20b918,000 for the 3rd kW). Additional state subsidies may apply in regions like Delhi or UP.",
+        "display_order": 1,
+        "is_active": 1,
+        "category": "Subsidy",
+        "created_at": "2026-07-21 19:19:05"
+    },
+    {
+        "id": "faq_2",
+        "question": "Who is eligible to apply for the Central Solar Subsidy?",
+        "answer": "Residential homeowners with a valid DISCOM electricity connection and suitable un-shaded rooftop space are eligible. Commercial and industrial properties are not eligible for direct consumer subsidies.",
+        "display_order": 2,
+        "is_active": 1,
+        "category": "Eligibility",
+        "created_at": "2026-07-21 19:19:05"
+    },
+    {
+        "id": "faq_3",
+        "question": "How long does it take for the subsidy amount to be credited?",
+        "answer": "Once net-metering is installed and the commissioning certificate is issued by your local DISCOM, the subsidy amount is directly transferred (DBT) to your bank account within 30 days.",
+        "display_order": 3,
+        "is_active": 1,
+        "category": "Process",
+        "created_at": "2026-07-21 19:19:05"
+    },
+    {
+        "id": "faq_4",
+        "question": "Is net metering mandatory for receiving the solar subsidy?",
+        "answer": "Yes, net metering is mandatory for grid-connected rooftop solar systems to measure your energy export and enable subsidy disburser verification.",
+        "display_order": 4,
+        "is_active": 1,
+        "category": "Technical",
+        "created_at": "2026-07-21 19:19:05"
+    }
+]

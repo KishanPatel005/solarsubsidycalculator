@@ -23,6 +23,11 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^blog/([a-zA-Z0-9_-]+)$ blog/post.php?slug=$1 [L,QSA]
 
+# Internal Rewrite for single daily solar update: /daily-update/[slug] -> daily-update.php?slug=[slug]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^daily-update/([a-zA-Z0-9_-]+)$ daily-update.php?slug=$1 [L,QSA]
+
 # Internal Rewrite for normal pages (remove .php extension dynamically)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
