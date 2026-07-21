@@ -7,7 +7,7 @@ class Config {
     public const SITE_URL = 'http://localhost/solarsubsidycalculator';
 
     // Database Driver ('json' or 'mysql')
-    public const DB_DRIVER = 'json';
+    public const DB_DRIVER = 'mysql';
 
     // MySQL connection settings
     public const DB_HOST = 'localhost';
