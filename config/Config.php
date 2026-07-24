@@ -2,7 +2,8 @@
 
 namespace Config;
 
-class Config {
+class Config
+{
     // Site base URL settings
     public const SITE_URL = 'http://localhost/solarsubsidycalculator';
 
@@ -10,11 +11,11 @@ class Config {
     public const DB_DRIVER = 'mysql';
 
     // MySQL connection settings
-    public const DB_HOST = 'localhost';
+    public const DB_HOST = '193.203.184.62';
     public const DB_PORT = '3306';
-    public const DB_NAME = 'solarsubsidy';
-    public const DB_USER = 'root';
-    public const DB_PASS = '';
+    public const DB_NAME = 'u371855741_solar';
+    public const DB_USER = 'u371855741_solar';
+    public const DB_PASS = 'Solarsubsidycalculator12';
 
     // File backup paths for JSON database storage
     public const JSON_LEADS_PATH = __DIR__ . '/../leads.json';
